@@ -1,34 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/stili/standard/head.jsp" %>
 
-<html>
-<head>
-  <title>Gestore Farmacie</title>
-    <link href="stili/style.css" rel="stylesheet" type="text/css">
-    <script src="libraries/jquery.js"></script>
-    <script src="libraries/jquery.sticky-kit.js"></script>
-    <script src="utilities/util.js"></script>
-</head>
-<body>
-<div id="logo">
-  <img src="images/logo-farmacia-300x336.jpg">
-</div>
-  <div id="menu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="index.html">Chi Siamo</a></li>
-      <li><a href="index.html">Contatti</a></li>
-      <li style="float:right">
-        <form class="login" method="post">
-          Username <input type="text" class="txt"><br>
-          Password <input type="password" maxlength="20" name="psw" class="txt"/><br>
-          <input type="submit" id="invio" value="Login">
-        </form>
-      </li>
-    </ul>
-  </div>
-</div>
-<div id="contenuto">
     <h1>Benvenuti </h1><br>
     <p>Questo &egrave; il prtimo sito in Italia per la gestione regionale delle farmacie, buona permanenza</p>
     <p>quando qualcuno non c'è più
@@ -124,8 +97,6 @@
         io non voglio più guardare
         dentro di me non c'è niente di niente</p>
 </div>
-<div id="bot">
-    <p>Ogni diritto &egrave; riservato a Facchin Stefano</p>
-</div>
+<%@ include file="/stili/standard/bot.jsp" %>
 </body>
 </html>
