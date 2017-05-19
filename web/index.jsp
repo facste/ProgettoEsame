@@ -4,6 +4,7 @@
 <html>
 <head>
   <title>Gestore Farmacie</title>
+    <link href="stili/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="logo">
