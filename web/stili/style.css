@@ -15,11 +15,10 @@ body{
     padding: 0px;
     overflow: hidden;
 }
-
 #menu li {
-
     padding-left: 5px;
     padding-right:5px;
+    float: left;
 }
 #menu li a {
     display: block;
@@ -27,13 +26,10 @@ body{
     padding: 14px 16px;
     text-decoration: none;
 }
-#menu li {
-    float: left;
-}
 #menu li form {
     display: block;
     color: white;,
-text-align: center;
+    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     text-align:center;
@@ -57,7 +53,15 @@ text-align: center;
     background-color:white;
 }
 #contenuto{
-
     margin-left: 8%;
     margin-right: 8%;
+}
+input[type=text]:focus {
+    background-color:azure;
+}
+a:hover{
+    background-color:darkred
+}
+@font-face {
+    font-family:serif;
 }
