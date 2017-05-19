@@ -12,6 +12,7 @@
 <body>
 <div id="logo">
   <img src="images/logo-farmacia-300x336.jpg">
+</div>
   <div id="menu">
     <ul>
       <li><a href="index.html">Home</a></li>
