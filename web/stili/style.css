@@ -27,3 +27,37 @@ body{
     padding: 14px 16px;
     text-decoration: none;
 }
+#menu li {
+    float: left;
+}
+#menu li form {
+    display: block;
+    color: white;,
+text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    text-align:center;
+}
+.txt{
+    border-radius: 15px/15px;
+    align-content: center;
+}
+#invio{
+    border-radius: 15px/15px;
+
+}
+#logo{
+    text-align: center;
+}
+#bot{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color:white;
+}
+#contenuto{
+
+    margin-left: 8%;
+    margin-right: 8%;
+}
