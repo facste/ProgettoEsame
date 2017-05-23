@@ -35,6 +35,10 @@ public class MyFirstAction extends Action {
                 System.out.println("EMPLOYEE NAME:"
                         + resultSet.getString("EMPNAME"));
             }*/
+            if(statement!=null)
+                return(mapping.findForward("success"));
+            else
+                return(mapping.findForward("bad-user"));
         }
         catch (Exception e)
         {
@@ -53,7 +57,7 @@ public class MyFirstAction extends Action {
                 e.printStackTrace();
             }
         }
-
+/*
         if ((email.trim().length()<1)) {
             return(mapping.findForward("bad-user"));
         } else if ((password == null) ||
@@ -61,7 +65,8 @@ public class MyFirstAction extends Action {
             return(mapping.findForward("bad-password"));
         } else {
             return(mapping.findForward("success"));
-        }
+        }*/
+        return(mapping.findForward("bad-user"));
     }
 
 }
