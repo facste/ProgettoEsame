@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="ProgettoEsame:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/ProgettoEsame_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="ProgettoEsame/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ProgettoEsame" />
@@ -34,8 +33,10 @@
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-util-scan.jar" />
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/tomcat-websocket.jar" />
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-storeconfig.jar" />
+          <element id="file-copy" path="$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/sqlite-jdbc-3.16.1.jar" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="ProgettoEsame/web/Web" />
     </root>
   </artifact>
 </component>

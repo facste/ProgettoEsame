@@ -23,16 +23,19 @@ public class LoginAction extends Action {
         Connection connection = null;
         ResultSet resultSet = null;
         Statement statement = null;
-        String query="SELECT * FROM login WHERE user= " + user + " AND password= " + password + " ;";
+        String query="SELECT * FROM login WHERE user= \"" + user + "\" AND password= \"" + password + "\";";
         try
         {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
             statement = connection.createStatement();
-            resultSet = statement
-                    .executeQuery(query);
-            if(resultSet.first()==true)
+            resultSet = statement.executeQuery(query);
+            if(resultSet!=null){
+                resultSet.close();
+                statement.close();
+                connection.close();
                 return(mapping.findForward("success"));
+            }
         }
         catch (Exception e)
         {
