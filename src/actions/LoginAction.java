@@ -30,7 +30,8 @@ public class LoginAction extends Action {
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
-            if(resultSet!=null){
+            resultSet.next();
+            if(resultSet.getString("user").equals(user)){
                 resultSet.close();
                 statement.close();
                 connection.close();
