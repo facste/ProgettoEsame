@@ -23,7 +23,7 @@ public class LoginAction extends Action {
         Connection connection = null;
         ResultSet resultSet = null;
         Statement statement = null;
-        String query="SELECT * FROM login WHERE user=" + user + "AND password=" + password + ";";
+        String query="SELECT * FROM login WHERE user= " + user + " AND password= " + password + " ;";
         try
         {
             Class.forName("org.sqlite.JDBC");
@@ -31,15 +31,8 @@ public class LoginAction extends Action {
             statement = connection.createStatement();
             resultSet = statement
                     .executeQuery(query);
-            /*while (resultSet.next())
-            {
-                System.out.println("EMPLOYEE NAME:"
-                        + resultSet.getString("EMPNAME"));
-            }*/
-            if(statement!=null)
+            if(resultSet.first()==true)
                 return(mapping.findForward("success"));
-            else
-                return(mapping.findForward("bad-user"));
         }
         catch (Exception e)
         {
@@ -58,16 +51,6 @@ public class LoginAction extends Action {
                 e.printStackTrace();
             }
         }
-/*
-        if ((email.trim().length()<1)) {
-            return(mapping.findForward("bad-user"));
-        } else if ((password == null) ||
-                (password.trim().length() < 6)) {
-            return(mapping.findForward("bad-password"));
-        } else {
-            return(mapping.findForward("success"));
-        }*/
-        return(mapping.findForward("bad-user"));
+        return(mapping.findForward("bad-login"));
     }
-
 }

@@ -13,8 +13,7 @@
     </global-forwards>
     <action-mappings>
         <action path="/login" type="actions.LoginAction">
-            <forward name="bad-user" path="/WEB-INF/results/bad-user.jsp"/>
-            <forward name="bad-password" path="/WEB-INF/results/bad-password.jsp"/>
+            <forward name="bad-login" path="/WEB-INF/results/bad-login.jsp"/>
         </action>
     </action-mappings>
 </struts-config>
