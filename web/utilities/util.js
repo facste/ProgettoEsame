@@ -5,11 +5,11 @@ $(document).ready(function() {
     $('form').submit(function () {
         var user = $.trim($('#user').val());
         var psw = $.trim($('#psw').val());
-        if (user === '' || user.indexOf(';') == -1) {
+        if (user === ''  || user.search(';') != -1) {
             alert('Username vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
-        if (psw === '' || psw.indexOf(';') == -1) {
+        if (psw === ''  || psw.search(';') != -1) {
             alert('Password vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
