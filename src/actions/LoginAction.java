@@ -15,21 +15,22 @@ import java.sql.Statement;
 /**
  * Created by facst on 28/04/2017.
  */
-public class MyFirstAction extends Action {
+public class LoginAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String email = request.getParameter("user");
+        String user = request.getParameter("user");
         String password = request.getParameter("psw");
         Connection connection = null;
         ResultSet resultSet = null;
         Statement statement = null;
+        String query="SELECT * FROM login WHERE user=" + user + "AND password=" + password + ";";
         try
         {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
             statement = connection.createStatement();
             resultSet = statement
-                    .executeQuery("SELECT * FROM player WHERE NAME=" + email);
+                    .executeQuery(query);
             /*while (resultSet.next())
             {
                 System.out.println("EMPLOYEE NAME:"

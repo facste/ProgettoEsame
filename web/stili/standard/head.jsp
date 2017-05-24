@@ -24,7 +24,7 @@
         <li><a href="index.html">Chi Siamo</a></li>
         <li><a href="index.html">Contatti</a></li>
         <li style="float:right">
-            <form action="/login.do" method="post">
+            <form action="login.do" method="post">
                 Username <input type="text" class="txt" id="user" name="user"><br>
                 Password <input type="password" maxlength="20" class="txt" id="psw" name="psw"/><br>
                 <input type="submit" id="invio" value="Login">

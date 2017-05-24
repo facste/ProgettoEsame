@@ -1,7 +1,6 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/stili/standard/head.jsp" %>
-
     <h1>Benvenuti </h1><br>
     <p>Questo &egrave; il prtimo sito in Italia per la gestione regionale delle farmacie, buona permanenza</p>
     <p>quando qualcuno non c'è più
