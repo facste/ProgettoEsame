@@ -9,3 +9,5 @@
 <div id="bot">
     <p>Ogni diritto &egrave; riservato a Facchin Stefano</p>
 </div>
+</body>
+</html>

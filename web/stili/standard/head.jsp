@@ -20,9 +20,9 @@
 </div>
 <div id="menu">
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html">Chi Siamo</a></li>
-        <li><a href="index.html">Contatti</a></li>
+        <li><a href="index.jsp">Home</a></li>
+        <li><a href=chisiamo.jsp>Chi Siamo</a></li>
+        <li><a href="contatti.jsp">Contatti</a></li>
         <li style="float:right">
             <form action="login.do" method="post">
                 Username <input type="text" class="txt" id="user" name="user"><br>

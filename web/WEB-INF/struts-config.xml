@@ -5,15 +5,13 @@
         "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 
 <struts-config>
-    <!--  <form-beans>
-          <form-bean name="" type=""/>
-      </form-beans>-->
-    <global-forwards>
-        <forward name="success" path="/WEB-INF/results/confirm.jsp"/>
-    </global-forwards>
+    <form-beans>
+          <form-bean name="loginForm" type="beans.LoginBean"/>
+      </form-beans>
     <action-mappings>
-        <action path="/login" type="actions.LoginAction">
+        <action path="/login" type="actions.LoginAction" name="loginForm" scope="session">
             <forward name="bad-login" path="/WEB-INF/results/bad-login.jsp"/>
+            <forward name="success" path="/WEB-INF/results/confirm.jsp"/>
         </action>
     </action-mappings>
 </struts-config>
