@@ -5,7 +5,8 @@ body{
     margin-left: 7%;
     margin-right: 7%;
     background-color:firebrick;
-    border-radius: 15px/15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
     width: 85%;
 }
 #menu ul {
@@ -54,6 +55,9 @@ body{
 #contenuto{
     margin-left: 8%;
     margin-right: 8%;
+    border-style: solid;
+    border-color: firebrick;
+    border-width: 0px 15px 0px 15px;
 }
 #logmenu {
     display: block;
@@ -68,5 +72,5 @@ a:hover{
     background-color:darkred
 }
 @font-face {
-    font-family:serif;
+    font-family:sans-serif;
 }
