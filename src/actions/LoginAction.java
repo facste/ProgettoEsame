@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -32,6 +33,10 @@ public class LoginAction extends Action {
             resultSet = statement.executeQuery(query);
             resultSet.next();
             if(resultSet.getString("user").equals(user)){
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+                session.setAttribute("tipo", resultSet.getString("tipo"));
+                session.setAttribute("log", true);
                 resultSet.close();
                 statement.close();
                 connection.close();

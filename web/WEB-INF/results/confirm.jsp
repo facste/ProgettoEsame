@@ -2,4 +2,5 @@
 <%@ include file="/stili/standard/head.jsp" %>
 
 <h1>Login Eseguito correttamente</h1>
+<p>Benvenuto</p><%= session.getAttribute("user")%>
 <%@ include file="/stili/standard/bot.jsp" %>
