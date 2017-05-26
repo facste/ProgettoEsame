@@ -14,14 +14,14 @@
 <div id="menu">
     <ul>
         <li><a href=chisiamo.jsp>Registra farmacia</a></li>
-        <li><a href="contatti.jsp">Contatti</a></li>
-        <li style="float: right" id="logmenu">
+        <li><a href="contatti.jsp">Vedi Farmacie</a></li>
+        <li><a href="contatti.jsp">Riepilogo Territorio</a></li>
+        <li style="float: right; padding: 14px 16px;" id="logmenu">
             Benvenuto <%= session.getAttribute("user") %>
-            <form action="/logout.do" method="post">
+            <form action="/logout.do" method="post" style="text-align: center">
                 <input type="submit" value="Logout" id="invio" />
             </form>
         </li>
     </ul>
-</div>
 </div>
 <div id="contenuto">
