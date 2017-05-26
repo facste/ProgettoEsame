@@ -55,6 +55,12 @@ body{
     margin-left: 8%;
     margin-right: 8%;
 }
+#logmenu {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 input[type=text]:focus {
     background-color:azure;
 }

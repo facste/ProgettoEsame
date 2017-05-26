@@ -10,5 +10,8 @@
             <forward name="bad-login" path="/WEB-INF/results/bad-login.jsp"/>
             <forward name="success" path="/WEB-INF/results/confirm.jsp"/>
         </action>
+        <action path="/logout" type="actions.LogoutAction">
+            <forward name="success" path="/WEB-INF/results/logout.jsp"/>
+        </action>
     </action-mappings>
 </struts-config>

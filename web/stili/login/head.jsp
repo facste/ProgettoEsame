@@ -6,7 +6,6 @@
     <link href="stili/style.css" rel="stylesheet" type="text/css">
     <script src="libraries/jquery.js"></script>
     <script src="libraries/jquery.sticky-kit.js"></script>
-    <script src="utilities/util.js"></script>
 </head>
 <body>
 <div id="logo">
@@ -16,10 +15,12 @@
     <ul>
         <li><a href=chisiamo.jsp>Registra farmacia</a></li>
         <li><a href="contatti.jsp">Contatti</a></li>
-        <div style="float:right">
-            <li>Benvenuto <%= session.getAttribute("user") %></li>
-            <button type="button">Logout</button>
-        </div>
+        <li style="float: right" id="logmenu">
+            Benvenuto <%= session.getAttribute("user") %>
+            <form action="/logout.do" method="post">
+                <input type="submit" value="Logout" id="invio" />
+            </form>
+        </li>
     </ul>
 </div>
 </div>
