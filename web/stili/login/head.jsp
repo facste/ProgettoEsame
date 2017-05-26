@@ -13,7 +13,7 @@
 </div>
 <div id="menu">
     <ul>
-        <li><a href=chisiamo.jsp>Registra farmacia</a></li>
+        <li><a href=../pagine-reg/creafarmacia.jsp>Registra farmacia</a></li>
         <li><a href="contatti.jsp">Vedi Farmacie</a></li>
         <li><a href="contatti.jsp">Riepilogo Territorio</a></li>
         <li style="float: right; padding: 14px 16px;" id="logmenu">
