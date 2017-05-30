@@ -34,10 +34,10 @@ $(document).ready(function(){
         if (dest === ''  || dest.search(';') != -1) {
             alert('Destinatario vuoto o contenente caratteri illegatli [; ]');
             return false;
-        }
+        }/*
         if (msg === '' ) {
             alert('Messaggio vuoto');
             return false;
-        }
+        }*/
     });
 });

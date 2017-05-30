@@ -9,6 +9,10 @@ import util.Utilita;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by facst on 30/05/2017.
@@ -23,11 +27,43 @@ public class CreaMessaggioAction extends Action {
         String tipo=session.getAttribute("tipo").toString();
         Utilita ut=new Utilita();
         String tipodest= ut.trovatipo(dest);
-        if(tipodest!=null){
-            if(tipodest.equals('OB')):
-                    if(tipo.equals(""))
+        ut.close();
+        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))) {
+            Connection connection = null;
+            Statement statement = null;
+            String query="INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" +mittente+ "','" +dest+ "','" +testo+ "');";
+            try
+            {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
+                statement = connection.createStatement();
+                statement.executeUpdate(query);
+                request.setAttribute("fonte","chat");
+                request.setAttribute("messaggio","Messaggio creato con successo");
+                return(mapping.findForward("success"));
+
             }
-            return(mapping.findForward("success"));
-        }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    statement.close();
+                    connection.close();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            request.setAttribute("errore","Impossibile creare messaggio");
+            return(mapping.findForward("error"));
+        }else
+            request.setAttribute("errore","Impossibile creare messaggio");
+            return(mapping.findForward("error"));
+
     }
 }

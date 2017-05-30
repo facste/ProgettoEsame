@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/stili/chat/head.jsp" %>
+<%@ include file="/stili/login/head.jsp" %>
 <h1>Errore, ritenta</h1>
-<%@ include file="/stili/chat/bot.jsp" %>
+<p>Codice errore:</p><%=request.getAttribute("errore").toString()%>
+<%@ include file="/stili/login/bot.jsp" %>

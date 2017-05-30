@@ -40,6 +40,8 @@ public class LoginAction extends Action {
                 resultSet.close();
                 statement.close();
                 connection.close();
+                request.setAttribute("fonte","login");
+                request.setAttribute("messaggio","Login Eseguito correttamente");
                 return(mapping.findForward("success"));
             }
         }
