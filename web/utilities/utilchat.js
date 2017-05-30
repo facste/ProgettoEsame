@@ -1,5 +1,5 @@
 $(document).ready(function()
     {
-        $("#lm").tablesorter();
+        $("#lm").tablesorter( {sortList: [[0,0]]} );
     }
 );
