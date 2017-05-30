@@ -6,6 +6,7 @@
     <link href="/stili/style.css" rel="stylesheet" type="text/css">
     <script src="/libraries/jquery.js"></script>
     <script src="/libraries/jquery.sticky-kit.js"></script>
+    <script src="/utilities/util.js"></script>
 </head>
 <body>
 <div id="logo">

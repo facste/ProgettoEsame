@@ -1,3 +1,4 @@
+/* Tutte le pagine*/
 body{
     background-color: azure;
 }
@@ -62,18 +63,20 @@ body{
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }
+/*Stile menù di login*/
 #logmenu {
     display: block;
     color: white;
     padding: 14px 16px;
     text-decoration: none;
 }
-input[type=text]:focus {
-    background-color:azure;
-}
-a:hover{
-    background-color:darkred
-}
-@font-face {
-    font-family:sans-serif;
-}
+
+/* PAGINA creafarmacia.jsp */
+#creaf { text-align: center; display: table;  }
+.form { display: table-row;  }
+label { display: table-cell; }
+
+/*Globali*/
+input[type=text]:focus { background-color:azure; }
+a:hover{ background-color:darkred }
+@font-face { font-family:sans-serif;}
