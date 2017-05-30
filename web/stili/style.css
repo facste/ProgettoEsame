@@ -80,3 +80,19 @@ label { display: table-cell; }
 input[type=text]:focus { background-color:azure; }
 a:hover{ background-color:darkred }
 @font-face { font-family:sans-serif;}
+/* LISTA MESSAGGI*/
+table{
+    border-collapse: collapse;
+    width: 100%
+}
+
+table, tr {
+    border: 1px solid firebrick;
+    border-bottom: 1px solid black;
+}
+th, td {
+    text-align: center;
+    padding: 5px;
+
+}
+tr:nth-child(even){background-color: #f2f2f2}

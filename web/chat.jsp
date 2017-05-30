@@ -7,10 +7,12 @@
 --%>
 <%@ include file="/stili/chat/head.jsp" %>
 <%@page import="util.Utilita" %>
-<table id="lm">
-    <tr><td>Mittente</td><td>Destinatario</td><td>Messaggio</td><td>I/R</td></tr>
-    <% Utilita listamessaggi= new Utilita();%>
-    <%=listamessaggi.listaMessaggi(session.getAttribute("user").toString())%>
-    <%listamessaggi.close();%>
-</table>
+<div style="overflow-x:auto;">
+    <table id="lm">
+        <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th><th>I/R</th></tr>
+        <% Utilita listamessaggi= new Utilita();%>
+        <%=listamessaggi.listaMessaggi(session.getAttribute("user").toString())%>
+        <%listamessaggi.close();%>
+    </table>
+</div>
 <%@ include file="/stili/chat/bot.jsp" %>
