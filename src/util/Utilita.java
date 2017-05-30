@@ -7,57 +7,51 @@ import java.util.ArrayList;
 /**
  * Created by facst on 30/05/2017.
  */
-public class Utilità {
+public class Utilita {
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
 
-    public Utilità() {
+    public Utilita() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
             statement = connection.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
-    public void listaMessaggi(String utente)  {
+    public String listaMessaggi(String utente)  {
         String query1 = "SELECT * FROM messaggio WHERE destinatario=\""+utente+"\";";
         String query2 = "SELECT * FROM messaggio WHERE mittente=\""+utente+"\";";
+        String out="";
+
         try {
             resultSet = statement.executeQuery(query1);
             while (resultSet.next())
             {
-                System.out.println("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("messaggio")+"</p></td><td>img src=\"/images/invio.jpg\" ></td></tr>");
+                out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/invio.jpg\" ></td></tr>");
             }
             resultSet = statement.executeQuery(query2);
             while (resultSet.next())
             {
-                System.out.println("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("messaggio")+"</p></td><td>img src=\"/images/ricevuto.jpg\" ></td></tr>");
+                out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/ricevuto.jpg\" ></td></tr>");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-
-
+        return out;
+    }
+    public void close(){
+        try {
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
