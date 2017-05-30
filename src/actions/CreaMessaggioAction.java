@@ -28,7 +28,7 @@ public class CreaMessaggioAction extends Action {
         Utilita ut=new Utilita();
         String tipodest= ut.trovatipo(dest);
         ut.close();
-        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))) {
+        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))&&(dest.equals(mittente)==false)) {
             Connection connection = null;
             Statement statement = null;
             String query="INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" +mittente+ "','" +dest+ "','" +testo+ "');";

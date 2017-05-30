@@ -19,7 +19,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     //PER RICERCA
     $('#cercamsg').submit(function () {
-        var msg = $.trim($('#namemsg').val())
+        var msg = $.trim($('#namemsg').val());
         if (msg === ''  || msg.search(';') != -1) {
             alert('Ricerca vuota o contenente caratteri illegatli [; ]');
             return false;
@@ -29,15 +29,15 @@ $(document).ready(function(){
 $(document).ready(function(){
     //PER RICERCA
     $('#creaf').submit(function () {
-        var dest = $.trim($('#dest').val())
-        var msg = $.trim($('#testo').val())
+        var dest = $.trim($('#dest').val());
+        var msg = $.trim($('#testo').val());
         if (dest === ''  || dest.search(';') != -1) {
             alert('Destinatario vuoto o contenente caratteri illegatli [; ]');
             return false;
-        }/*
+        }
         if (msg === '' ) {
             alert('Messaggio vuoto');
             return false;
-        }*/
+        }
     });
 });
