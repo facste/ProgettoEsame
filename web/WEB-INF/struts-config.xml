@@ -17,5 +17,9 @@
             <forward name="success" path="/WEB-INF/results/logout.jsp"/>
             <forward name="bad-farmacia" path="/WEB-INF/results/logout.jsp"/>
         </action>
+        <action path="/creamessaggio" type="actions.CreaMessaggioAction">
+            <forward name="success" path="/WEB-INF/results/logout.jsp"/>
+            <forward name="error" path="/WEB-INF/results/error.jsp"/>
+        </action>
     </action-mappings>
 </struts-config>

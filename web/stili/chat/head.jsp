@@ -15,7 +15,7 @@
 </div>
 <div id="menu">
     <ul>
-        <li><a href="/WEB-INF/results/confirm.jsp">Home</a></li>
+        <li><a href="/chat/newmessage.jsp">Home</a></li>
         <li><a href=/page-reg/creafarmacia.jsp>Scrivi messaggio</a></li>
         <li><a href="/chat/listmsg.jsp">Lista messaggi</a></li>
         <li style="float: right; padding: 14px 16px;" id="logmenu">

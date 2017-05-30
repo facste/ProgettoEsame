@@ -127,5 +127,19 @@ public class Utilita {
         }
         return out;
     }
+
+    public String trovatipo(String user){
+        String query="SELECT tipo FROM login WHERE user= '" + user +"';";
+        try {
+            resultSet = statement.executeQuery(query);
+            resultSet.next();
+            return resultSet.getString("tipo");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
 
