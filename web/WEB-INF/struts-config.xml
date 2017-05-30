@@ -13,5 +13,9 @@
         <action path="/logout" type="actions.LogoutAction">
             <forward name="success" path="/WEB-INF/results/logout.jsp"/>
         </action>
+        <action path="/creafarmacia" type="actions.CreaFarmaciaAction">
+            <forward name="success" path="/WEB-INF/results/logout.jsp"/>
+            <forward name="bad-farmacia" path="/WEB-INF/results/logout.jsp"/>
+        </action>
     </action-mappings>
 </struts-config>

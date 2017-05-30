@@ -3,7 +3,7 @@
 
 <h1>Qui potrai aggiungenere delle nuove farmacie</h1> <br>
 <div align="center">
-<form method="post" id="creaf">
+<form action="/creafarmacia.do" method="post" id="creaf">
     <p class="form">
         <label>Nome farmacia</label> *<input type="text" class="txt" name="nf" id="nf"><br><br>
     </p>
