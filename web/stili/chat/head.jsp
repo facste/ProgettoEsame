@@ -18,6 +18,7 @@
         <li><a href=/page-reg/creafarmacia.jsp>Scrivi messaggio</a></li>
         <li><a href="contatti.jsp">Elimina tutto</a></li>
         <li><a href="/chat.jsp">Lista messaggi</a></li>
+        <li><a href="/chat.jsp">Cerca</a></li>
         <li style="float: right; padding: 14px 16px;" id="logmenu">
             Benvenuto <%= session.getAttribute("user") %>
             <form action="/logout.do" method="post" style="text-align: center">
