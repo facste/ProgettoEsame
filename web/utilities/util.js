@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('#creaf').submit(function () {
         var namef = $.trim($('#nf').val());
         var namet = $.trim($('#namet').val());
-        var surnamet = $.trim($('#surnametf').val());
+        var surnamet = $.trim($('#surnamet').val());
         var telefono = $.trim($('#tel').val());
         var indirizzo = $.trim($('#if').val());
         if (namef === ''  || namef.search(';') != -1) {
