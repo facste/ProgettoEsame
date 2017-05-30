@@ -18,6 +18,7 @@ import java.sql.Statement;
  * Created by facst on 30/05/2017.
  */
 public class CreaMessaggioAction extends Action {
+    //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI ECC
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String dest=request.getParameter("dest");
@@ -28,7 +29,7 @@ public class CreaMessaggioAction extends Action {
         Utilita ut=new Utilita();
         String tipodest= ut.trovatipo(dest);
         ut.close();
-        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))&&(dest.equals(mittente)==false)) {
+        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))&&(!dest.equals(mittente))) {
             Connection connection = null;
             Statement statement = null;
             String query="INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" +mittente+ "','" +dest+ "','" +testo+ "');";
@@ -58,10 +59,11 @@ public class CreaMessaggioAction extends Action {
                 {
                     e.printStackTrace();
                 }
+                request.setAttribute("errore","Impossibile creare messaggio");
+                return(mapping.findForward("error"));
             }
-            request.setAttribute("errore","Impossibile creare messaggio");
-            return(mapping.findForward("error"));
-        }else
+
+        }
             request.setAttribute("errore","Impossibile creare messaggio");
             return(mapping.findForward("error"));
 

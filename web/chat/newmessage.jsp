@@ -13,7 +13,7 @@
             <label>Destinatario</label> *<input type="text" class="txt" name="dest" id="dest"><br><br>
         </p>
         <p class="form">
-        <label>Testo messaggio</label> *<textarea name="testo" id="" cols="30" rows="10" id="testo" class="txt"></textarea><br><br>
+        <label>Testo messaggio</label> *<textarea name="testo" cols="30" rows="10" id="testo" class="txt"></textarea><br><br>
         </p>
         <input type="submit" value="Crea" class="invio">
         <input type="reset" value="Reset" class="invio">
