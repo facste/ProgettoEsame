@@ -14,10 +14,9 @@
 </div>
 <div id="menu">
     <ul>
-        <li><a href=/page-reg/creafarmacia.jsp>Registra farmacia</a></li>
-        <li><a href="contatti.jsp">Vedi Farmacie</a></li>
-        <li><a href="">Riepilogo Territorio</a></li>
-        <li><a href="/chat.jsp">Chat</a></li>
+        <li><a href=/page-reg/creafarmacia.jsp>Scrivi messaggio</a></li>
+        <li><a href="contatti.jsp">Elimina tutto</a></li>
+        <li><a href="/chat.jsp">Lista messaggi</a></li>
         <li style="float: right; padding: 14px 16px;" id="logmenu">
             Benvenuto <%= session.getAttribute("user") %>
             <form action="/logout.do" method="post" style="text-align: center">

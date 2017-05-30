@@ -19,6 +19,10 @@ public class CreaFarmaciaAction extends Action {
         String tel= request.getParameter("tel");
         String namet= request.getParameter("namet");
         String surnamet= request.getParameter("surnamet");
+        /*
+        * DA CONTINUARE
+        *
+        * */
         return(mapping.findForward("success"));
     }
 }
