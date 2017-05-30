@@ -7,9 +7,18 @@
 --%>
 <%@ include file="/stili/chat/head.jsp" %>
 <%@page import="util.Utilita" %>
+
 <% if(request.getParameter("mittente")!=null) {
     Utilita eliminariga= new Utilita();
     eliminariga.elimina(request.getParameter("mittente"),request.getParameter("destinatario"), request.getParameter("messaggio"));}%>
+
+<form method="post" action="search.jsp" style="float: right" id="form">
+    <label>Cerca</label><input type="text" class="text" name="cercamsg" id="namemsg"><br>
+    <input type="radio" name="tipo" value="mittente" checked> Mittente
+    <input type="radio" name="tipo" value="destinatario"> Destinatario
+    <input type="radio" name="tipo" value="messaggio"> Messaggio <br>
+    <input type="submit" value="Cerca" id="cercamsg">
+</form>
 
 <div style="overflow-x:auto;">
         <table id="lm"  class="tablesorter">

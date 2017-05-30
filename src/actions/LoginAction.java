@@ -24,7 +24,7 @@ public class LoginAction extends Action {
         Connection connection = null;
         ResultSet resultSet = null;
         Statement statement = null;
-        String query="SELECT * FROM login WHERE user= \"" + user + "\" AND password= \"" + password + "\";";
+        String query="SELECT * FROM login WHERE user= '" + user + "' AND password= '" + password + "';";
         try
         {
             Class.forName("org.sqlite.JDBC");

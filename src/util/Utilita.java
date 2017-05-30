@@ -11,7 +11,6 @@ public class Utilita {
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
-    ArrayList<Messaggio> msgs= new ArrayList<Messaggio>();
 
     public Utilita() {
         try {
@@ -24,18 +23,17 @@ public class Utilita {
     }
 
     public String listaMessaggi(String utente)  {
-        String query = "SELECT * FROM messaggio WHERE destinatario=\""+utente+"\" OR mittente=\"" + utente + "\";";
+        String query = "SELECT * FROM messaggio WHERE destinatario='"+utente+"' OR mittente='" + utente + "';";
         String out="";
 
         try {
             resultSet = statement.executeQuery(query);
             while (resultSet.next())
             {
-                //msgs.add(new Messaggio(resultSet.getString("mittente"),resultSet.getString("destinatario"),resultSet.getString("testo")));
                 if(resultSet.getString("mittente").equals(utente))
-                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\"></td></tr>");
+                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
                 else
-                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/ricevuto.jpg\"></td><td><img src=\"/images/cestino.jpg\"></td></tr>");
+                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/ricevuto.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
             }
 
         } catch (Exception e) {
@@ -43,11 +41,12 @@ public class Utilita {
         }
         return out;
     }
+
     public boolean elimina(String mittente, String destinatario, String messaggio){
         Messaggio msg= new Messaggio(mittente.substring(mittente.indexOf("<p>") + 3, mittente.indexOf("</p>"))
                                     ,destinatario.substring(destinatario.indexOf("<p>") + 3, destinatario.indexOf("</p>"))
                                     ,messaggio.substring(messaggio.indexOf("<p>") + 3, messaggio.indexOf("</p>")));
-        String query = "DELETE FROM messaggio WHERE destinatario = \""+ msg.getDestinatario() + "\" AND mittente=\"" + msg.getMittente() + "\" AND testo=\"" + msg.getTesto()+"\";";
+        String query = "DELETE FROM messaggio WHERE destinatario = '"+ msg.getDestinatario() + "' AND mittente='" + msg.getMittente() + "' AND testo='" + msg.getTesto()+"';";
         try {
             statement.executeUpdate(query);
 
@@ -72,6 +71,61 @@ public class Utilita {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String cerca(String user, String msg, String tipo) {
+        String query="CREATE VIEW elem AS SELECT * FROM messaggio WHERE destinatario='"+user+"' OR mittente='" + user + "';";
+        String out="";
+        try {
+            statement.executeQuery(query);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        switch (tipo){
+            case "mittente":
+                query = "SELECT * FROM elem WHERE mittente LIKE '%" + msg + "%';";
+                try {
+                    resultSet = statement.executeQuery(query);
+                    while (resultSet.next())
+                    {
+                            out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "destinatario":
+                 query= "SELECT * FROM elem WHERE destinatario LIKE '%" + msg + "%';";
+
+                try {
+                    resultSet = statement.executeQuery(query);
+                    while (resultSet.next())
+                    {
+                        out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            break;
+            case "messaggio":
+                query= "SELECT * FROM elem WHERE testo LIKE '%" + msg + "%';";
+
+                try {
+                    resultSet = statement.executeQuery(query);
+                    while (resultSet.next())
+                    {
+                        out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            break;
+        }
+        return out;
     }
 }
 

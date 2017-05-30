@@ -85,7 +85,6 @@ table{
     border-collapse: collapse;
     width: 100%
 }
-
 table, tr {
     border: 1px solid firebrick;
     border-bottom: 1px solid black;

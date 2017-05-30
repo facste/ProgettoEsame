@@ -17,7 +17,7 @@
         <li><a href=/page-reg/creafarmacia.jsp>Registra farmacia</a></li>
         <li><a href="contatti.jsp">Vedi Farmacie</a></li>
         <li><a href="">Riepilogo Territorio</a></li>
-        <li><a href="/chat.jsp">Chat</a></li>
+        <li><a href="/chat/listmsg.jsp">Chat</a></li>
         <li style="float: right; padding: 14px 16px;" id="logmenu">
             Benvenuto <%= session.getAttribute("user") %>
             <form action="/logout.do" method="post" style="text-align: center">
