@@ -31,7 +31,7 @@ public class Utilita {
             resultSet = statement.executeQuery(query);
             while (resultSet.next())
             {
-                msgs.add(new Messaggio(resultSet.getString("mittente"),resultSet.getString("destinatario"),resultSet.getString("testo")));
+                //msgs.add(new Messaggio(resultSet.getString("mittente"),resultSet.getString("destinatario"),resultSet.getString("testo")));
                 if(resultSet.getString("mittente").equals(utente))
                     out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\"></td></tr>");
                 else
@@ -43,6 +43,27 @@ public class Utilita {
         }
         return out;
     }
+    public boolean elimina(String mittente, String destinatario, String messaggio){
+        Messaggio msg= new Messaggio(mittente.substring(mittente.indexOf("<p>") + 3, mittente.indexOf("</p>"))
+                                    ,destinatario.substring(destinatario.indexOf("<p>") + 3, destinatario.indexOf("</p>"))
+                                    ,messaggio.substring(messaggio.indexOf("<p>") + 3, messaggio.indexOf("</p>")));
+        String query = "DELETE FROM messaggio WHERE destinatario = \""+ msg.getDestinatario() + "\" AND mittente=\"" + msg.getMittente() + "\" AND testo=\"" + msg.getTesto()+"\";";
+        try {
+            statement.executeUpdate(query);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        try {
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public void close(){
         try {
             resultSet.close();

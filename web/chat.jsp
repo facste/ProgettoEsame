@@ -7,8 +7,12 @@
 --%>
 <%@ include file="/stili/chat/head.jsp" %>
 <%@page import="util.Utilita" %>
+<% if(request.getParameter("mittente")!=null) {
+    Utilita eliminariga= new Utilita();
+    eliminariga.elimina(request.getParameter("mittente"),request.getParameter("destinatario"), request.getParameter("messaggio"));}%>
+
 <div style="overflow-x:auto;">
-    <table id="lm"  class="tablesorter">
+        <table id="lm"  class="tablesorter">
         <thead>
         <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th><th>I/R</th><th>Elimina</th></tr>
         </thead>

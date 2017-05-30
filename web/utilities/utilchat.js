@@ -6,8 +6,12 @@ $(document).ready(function()
 $(document).ready(function(){
 $("img").click(function() {
     var $tr = $(this).parents("tr");
-    alert( $tr.find("td").eq(0).html() ); // mittente
-    alert( $tr.find("td").eq(1).html() ); // destinatario
-    alert( $tr.find("td").eq(2).html() ); // messaggio
+    var mittente= $tr.find("td").eq(0).html(); // mittente
+    var destinatario= $tr.find("td").eq(1).html(); // destinatario
+    var messaggio= $tr.find("td").eq(2).html(); // messaggio
+    $.post("chat.jsp", {mittente: mittente, destinatario: destinatario, messaggio: messaggio }, function(){
+        alert('Riga eliminata con successo');
+        location.reload();
+    });
 });
 });
