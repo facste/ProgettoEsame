@@ -8,11 +8,15 @@
 <%@ include file="/stili/chat/head.jsp" %>
 <%@page import="util.Utilita" %>
 <div style="overflow-x:auto;">
-    <table id="lm">
-        <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th><th>I/R</th></tr>
+    <table id="lm"  class="tablesorter">
+        <thead>
+        <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th><th>I/R</th><th>Elimina</th></tr>
+        </thead>
+        <tbody>
         <% Utilita listamessaggi= new Utilita();%>
         <%=listamessaggi.listaMessaggi(session.getAttribute("user").toString())%>
         <%listamessaggi.close();%>
+        </tbody>
     </table>
 </div>
 <%@ include file="/stili/chat/bot.jsp" %>
