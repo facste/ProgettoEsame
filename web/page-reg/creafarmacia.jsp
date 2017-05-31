@@ -17,7 +17,7 @@
     <label>Nome Titolare</label> *<input type="text" class="txt" name="namet" id="namet"><br><br>
     </p>
     <p class="form">
-    <label>Cognome Titolare</label> *<input type="text" class="txt" name="surnamet" id="surnamet"><br><br>
+    <label>Password Titolare</label> *<input type="password" class="txt" name="pass" id="pass"><br><br>
     </p>
     <input type="submit" value="Crea">
     <input type="reset" value="Reset">

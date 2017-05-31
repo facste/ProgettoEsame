@@ -11,8 +11,9 @@
 <% if(request.getParameter("mittente")!=null) {
     Utilita eliminariga= new Utilita();
     eliminariga.elimina(request.getParameter("mittente"),request.getParameter("destinatario"), request.getParameter("messaggio"));}%>
-<% if(request.getParameter("messaggio")!=null) %>
+<% if(request.getParameter("messaggio")!=null) {%>
     <%=request.getParameter("messaggio")%>
+<%}else%> <%=""%>
 <form method="post" action="search.jsp" id="form">
     <label>Cerca</label><input type="text" class="txt" name="cercamsg" id="namemsg">
     <input type="radio" name="tipo" value="mittente" checked> Mittente

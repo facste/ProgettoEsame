@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('#creaf').submit(function () {
         var namef = $.trim($('#nf').val());
         var namet = $.trim($('#namet').val());
-        var surnamet = $.trim($('#surnamet').val());
+        var pass = $.trim($('#pass').val());
         var telefono = $.trim($('#tel').val());
         var indirizzo = $.trim($('#if').val());
         if (namef === ''  || namef.search(';') != -1) {
@@ -34,7 +34,7 @@ $(document).ready(function() {
             alert('Nome titolare vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
-        if (surnamet === ''  || surnamet.search(';') != -1) {
+        if (pass === ''  || pass.search(';') != -1) {
             alert('Cognome titolare vuoto o contenente caratteri illegatli [; ]');
             return false;
         }

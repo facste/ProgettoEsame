@@ -18,7 +18,7 @@ public class CreaFarmaciaAction extends Action {
         String indirizzof= request.getParameter("if");
         String tel= request.getParameter("tel");
         String namet= request.getParameter("namet");
-        String surnamet= request.getParameter("surnamet");
+        String pass= request.getParameter("pass");
         /*
         * DA CONTINUARE
         *
