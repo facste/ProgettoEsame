@@ -37,12 +37,7 @@ public class LoginAction extends Action {
                 session.setAttribute("user", user);
                 session.setAttribute("tipo", resultSet.getString("tipo"));
                 session.setAttribute("log", true);
-                resultSet.close();
-                statement.close();
-                connection.close();
-                request.setAttribute("fonte","login");
-                request.setAttribute("messaggio","Login Eseguito correttamente");
-                return(mapping.findForward("success"));
+
             }
         }
         catch (Exception e)
@@ -56,6 +51,9 @@ public class LoginAction extends Action {
                 resultSet.close();
                 statement.close();
                 connection.close();
+                request.setAttribute("fonte","login");
+                request.setAttribute("messaggio","Login Eseguito correttamente");
+                return(mapping.findForward("success"));
             }
             catch (Exception e)
             {

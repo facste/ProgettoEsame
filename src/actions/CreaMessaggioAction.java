@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.Statement;
 
 /**
@@ -39,9 +39,6 @@ public class CreaMessaggioAction extends Action {
                 connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
-                request.setAttribute("fonte","chat");
-                request.setAttribute("messaggio","Messaggio creato con successo");
-                return(mapping.findForward("success"));
 
             }
             catch (Exception e)
@@ -54,13 +51,14 @@ public class CreaMessaggioAction extends Action {
                 {
                     statement.close();
                     connection.close();
+                    request.setAttribute("fonte","chat");
+                    request.setAttribute("messaggio","Messaggio creato con successo");
+                    return(mapping.findForward("success"));
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-                request.setAttribute("errore","Impossibile creare messaggio");
-                return(mapping.findForward("error"));
             }
 
         }
