@@ -36,7 +36,7 @@ public class CreaMessaggioAction extends Action {
             try
             {
                 Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
+                connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
 

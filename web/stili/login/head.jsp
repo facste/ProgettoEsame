@@ -20,6 +20,7 @@
             <li><a href="/chat/listmsg.jsp">Chat</a></li>
         <%}else if(session.getAttribute("tipo").equals("TF")){%>
             <li><a href=/page-reg/creafarmacia.jsp>Statistiche Farmacia</a></li>
+            <li><a href=/page-reg/creafarmacia.jsp>Registra Operatore</a></li>
             <li><a href="contatti.jsp">Magazzino</a></li>
             <li><a href="">Vendi</a></li>
             <li><a href="/chat/listmsg.jsp">Chat</a></li>

@@ -15,7 +15,7 @@ public class Utilita {
     public Utilita() {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/esampio.sqlite");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
             statement = connection.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
