@@ -51,7 +51,6 @@ public class CreaMessaggioAction extends Action {
                 {
                     statement.close();
                     connection.close();
-                    request.setAttribute("fonte","chat");
                     request.setAttribute("messaggio","Messaggio creato con successo");
                     return(mapping.findForward("success"));
                 }
