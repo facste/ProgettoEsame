@@ -27,7 +27,7 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function(){
-    //PER RICERCA
+    //PER CREAZIONE MESSAGGIO
     $('#creaf').submit(function () {
         var dest = $.trim($('#dest').val());
         var msg = $.trim($('#testo').val());

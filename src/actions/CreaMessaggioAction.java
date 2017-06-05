@@ -29,6 +29,10 @@ public class CreaMessaggioAction extends Action {
         Utilita ut=new Utilita();
         String tipodest= ut.trovatipo(dest);
         ut.close();
+        if(tipodest==null){
+            request.setAttribute("errore","Impossibile creare messaggio");
+            return(mapping.findForward("error"));
+        }
         if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))&&(!dest.equals(mittente))) {
             Connection connection = null;
             Statement statement = null;
