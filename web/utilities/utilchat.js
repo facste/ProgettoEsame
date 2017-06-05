@@ -1,3 +1,6 @@
+$(function() {
+    $("#menu").stick_in_parent()
+});
 $(document).ready(function(){
     //PER ORDINAMENTO COLONNE
         $("#lm").tablesorter( {sortList: [[0,0]]} );

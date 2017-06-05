@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Created by facst on 30/05/2017.
@@ -21,29 +22,42 @@ public class CreaMessaggioAction extends Action {
     //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI ECC
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String dest=request.getParameter("dest");
+        String[] dest=request.getParameter("dest").split(",");
         String testo=request.getParameter("testo") ;
         HttpSession session = request.getSession();
         String mittente= session.getAttribute("user").toString();
         String tipo=session.getAttribute("tipo").toString();
         Utilita ut=new Utilita();
-        String tipodest= ut.trovatipo(dest);
-        ut.close();
-        if(tipodest==null){
-            request.setAttribute("errore","Impossibile creare messaggio");
-            return(mapping.findForward("error"));
+        ArrayList<String> tipodest=new ArrayList<String>();
+        for(String destinatario: dest) {
+            String td= ut.trovatipo(destinatario);
+            tipodest.add(td);
+            if (td == null) {
+                ut.close();
+                request.setAttribute("errore", "Impossibile creare messaggio");
+                return (mapping.findForward("error"));
+            }
         }
-        if((tipodest.equals("REG")&& tipo.equals("TF")) || (tipodest.equals("TF")&& tipo.equals("REG"))&&(!dest.equals(mittente))) {
+        ut.close();
             Connection connection = null;
             Statement statement = null;
-            String query="INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" +mittente+ "','" +dest+ "','" +testo+ "');";
-            try
-            {
+            String query="";
+            try {
                 Class.forName("org.sqlite.JDBC");
                 connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
                 statement = connection.createStatement();
-                statement.executeUpdate(query);
-
+                for (int i = 0; i < dest.length; i++) {
+                    if ((tipodest.get(i).equals("REG") && tipo.equals("TF")) || (tipodest.get(i).equals("TF") && tipo.equals("REG")) && (!dest[i].equals(mittente))) {
+                        query=query.concat("INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" + mittente + "','" + dest[i] + "','" + testo + "');");
+                    }
+                    else {
+                        statement.close();
+                        connection.close();
+                        request.setAttribute("errore","Impossibile creare messaggio");
+                        return(mapping.findForward("error"));
+                    }
+                }
+                    statement.executeUpdate(query);
             }
             catch (Exception e)
             {
@@ -64,7 +78,6 @@ public class CreaMessaggioAction extends Action {
                 }
             }
 
-        }
             request.setAttribute("errore","Impossibile creare messaggio");
             return(mapping.findForward("error"));
 
