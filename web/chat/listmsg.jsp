@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         <% Utilita listamessaggi= new Utilita();%>
-        <%=listamessaggi.listaMessaggi(session.getAttribute("user").toString())%>
+        <%=listamessaggi.listaMessaggi(login.getUser())%>
         <%listamessaggi.close();%>
         </tbody>
     </table>

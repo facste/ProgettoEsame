@@ -1,5 +1,6 @@
 package actions;
 
+import beans.LoginData;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -19,14 +20,15 @@ import java.util.ArrayList;
  * Created by facst on 30/05/2017.
  */
 public class CreaMessaggioAction extends Action {
-    //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI ECC
+    //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI E TUTTI
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] dest=request.getParameter("dest").split(",");
         String testo=request.getParameter("testo") ;
-        HttpSession session = request.getSession();
-        String mittente= session.getAttribute("user").toString();
-        String tipo=session.getAttribute("tipo").toString();
+        HttpSession session = request.getSession(true);
+        LoginData login= (LoginData) session.getAttribute("login");
+        String mittente= login.getUser();
+        String tipo=login.getTipo();
         Utilita ut=new Utilita();
         ArrayList<String> tipodest=new ArrayList<String>();
         for(String destinatario: dest) {

@@ -1,5 +1,6 @@
 package actions;
 
+import beans.LoginData;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -34,9 +35,14 @@ public class LoginAction extends Action {
             resultSet.next();
             if(resultSet.getString("user").equals(user)){
                 HttpSession session = request.getSession();
-                session.setAttribute("user", user);
+                LoginData login= new LoginData();
+                login.setUser(user);
+                login.setCon(true);
+                login.setTipo(resultSet.getString("tipo"));
+                /*session.setAttribute("user", user);
                 session.setAttribute("tipo", resultSet.getString("tipo"));
-                session.setAttribute("log", true);
+                session.setAttribute("log", true);*/
+                session.setAttribute("login", login);
 
             }
         }

@@ -18,7 +18,7 @@ String tipo= request.getParameter("tipo");%>
         </thead>
         <tbody>
         <% Utilita listamessaggi= new Utilita();%>
-        <%=listamessaggi.cerca(session.getAttribute("user").toString(),msg,tipo)%>
+        <%=listamessaggi.cerca(login.getUser(),msg,tipo)%>
         <%listamessaggi.close();%>
         </tbody>
     </table>
