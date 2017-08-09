@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -23,16 +24,19 @@ public class CreaMessaggioAction extends Action {
     //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI E TUTTI
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String[] dest=request.getParameter("dest").split(",");
-        String testo=request.getParameter("testo") ;
+        String[] dest = request.getParameter("dest").split(",");
+        String testo = request.getParameter("testo");
         HttpSession session = request.getSession(true);
-        LoginData login= (LoginData) session.getAttribute("login");
-        String mittente= login.getUser();
-        String tipo=login.getTipo();
-        Utilita ut=new Utilita();
-        ArrayList<String> tipodest=new ArrayList<String>();
-        for(String destinatario: dest) {
-            String td= ut.trovatipo(destinatario);
+        LoginData login = (LoginData) session.getAttribute("login");
+        String mittente = login.getUser();
+        String tipo = login.getTipo();
+        Utilita ut = new Utilita();
+        boolean fail=false;
+        ArrayList<String> tipodest = new ArrayList<String>();
+        ArrayList<Boolean> controllo = new ArrayList<Boolean>();
+        for (String destinatario : dest) {
+            String td = ut.trovatipo(destinatario);
+            controllo.add(ut.controlla(mittente, destinatario));
             tipodest.add(td);
             if (td == null) {
                 ut.close();
@@ -41,47 +45,42 @@ public class CreaMessaggioAction extends Action {
             }
         }
         ut.close();
-            Connection connection = null;
-            Statement statement = null;
-            String query="";
-            try {
-                Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
-                statement = connection.createStatement();
-                for (int i = 0; i < dest.length; i++) {
-                    if ((tipodest.get(i).equals("REG") && tipo.equals("TF")) || (tipodest.get(i).equals("TF") && tipo.equals("REG")) && (!dest[i].equals(mittente))) {
-                        query=query.concat("INSERT INTO messaggio(mittente, destinatario, testo) VALUES ('" + mittente + "','" + dest[i] + "','" + testo + "');");
-                    }
-                    else {
-                        statement.close();
-                        connection.close();
-                        request.setAttribute("errore","Impossibile creare messaggio");
-                        return(mapping.findForward("error"));
-                    }
-                }
-                    statement.executeUpdate(query);
+        Connection connection = null;
+        PreparedStatement statement = null;
+        String query = "";
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            for (int i = 0; i < dest.length; i++) {
+                if ((tipodest.get(i).equals("REG") && tipo.equals("TF")) || (tipodest.get(i).equals("TF") && tipo.equals("REG")) && (!dest[i].equals(mittente)) || controllo.get(i)) {
+
+                    query = "INSERT INTO Messaggio(mittente, destinatario, testo) VALUES (?,?,?)";
+                    statement = connection.prepareStatement(query);
+                    statement.setString(1, mittente);
+                    statement.setString(2, dest[i]);
+                    statement.setString(3, testo);
+                    statement.executeUpdate();
+                } else fail = true;
             }
-            catch (Exception e)
-            {
+        } catch (Exception e) {
+            fail=true;
+            e.printStackTrace();
+        } finally {
+            try {
+
+                statement.close();
+                connection.close();
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            finally
-            {
-                try
-                {
-                    statement.close();
-                    connection.close();
-                    request.setAttribute("messaggio","Messaggio creato con successo");
-                    return(mapping.findForward("success"));
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
-            request.setAttribute("errore","Impossibile creare messaggio");
-            return(mapping.findForward("error"));
+        }
+        if (fail) {
+            request.setAttribute("errore", "Impossibile creare messaggi");
+            return (mapping.findForward("error"));
+        }
+        request.setAttribute("messaggio", "Messaggi creati con successo");
+        return (mapping.findForward("success"));
 
     }
 }

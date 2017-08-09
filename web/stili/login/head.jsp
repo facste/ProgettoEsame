@@ -10,9 +10,9 @@
 </head>
 <body>
 <jsp:useBean id="login" scope="session" class="beans.LoginData" />
-<%--<%if (login.equals(null)){%>
+<%if (login.equals(null)){%>
     <%response.sendRedirect("/index.jsp");%>
-<%}%>--%>
+<%}%>
 <div id="logo">
     <img src="/images/logo-farmacia-300x336.jpg">
 </div>

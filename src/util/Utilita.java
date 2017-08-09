@@ -10,30 +10,32 @@ import java.util.ArrayList;
 public class Utilita {
     private Connection connection;
     private ResultSet resultSet;
-    private Statement statement;
+    private PreparedStatement statement;
 
     public Utilita() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
-            statement = connection.createStatement();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String listaMessaggi(String utente)  {
-        String query = "SELECT * FROM messaggio WHERE destinatario='"+utente+"' OR mittente='" + utente + "';";
-        String out="";
+    public String listaMessaggi(String utente) {
+        String query = "SELECT * FROM Messaggio WHERE destinatario=? OR mittente=?";
+        String out = "";
 
         try {
-            resultSet = statement.executeQuery(query);
-            while (resultSet.next())
-            {
-                if(resultSet.getString("mittente").equals(utente))
-                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
+            statement = connection.prepareStatement(query);
+            statement.setString(1, utente);
+            statement.setString(2, utente);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getString("mittente").equals(utente))
+                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
                 else
-                    out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td><td><img src=\"/images/ricevuto.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
+                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/ricevuto.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
             }
 
         } catch (Exception e) {
@@ -42,13 +44,17 @@ public class Utilita {
         return out;
     }
 
-    public boolean elimina(String mittente, String destinatario, String messaggio){
-        Messaggio msg= new Messaggio(mittente.substring(mittente.indexOf("<p>") + 3, mittente.indexOf("</p>"))
-                                    ,destinatario.substring(destinatario.indexOf("<p>") + 3, destinatario.indexOf("</p>"))
-                                    ,messaggio.substring(messaggio.indexOf("<p>") + 3, messaggio.indexOf("</p>")));
-        String query = "DELETE FROM messaggio WHERE destinatario = '"+ msg.getDestinatario() + "' AND mittente='" + msg.getMittente() + "' AND testo='" + msg.getTesto()+"';";
+    public boolean elimina(String mittente, String destinatario, String messaggio) {
+        Messaggio msg = new Messaggio(mittente.substring(mittente.indexOf("<p>") + 3, mittente.indexOf("</p>"))
+                , destinatario.substring(destinatario.indexOf("<p>") + 3, destinatario.indexOf("</p>"))
+                , messaggio.substring(messaggio.indexOf("<p>") + 3, messaggio.indexOf("</p>")));
+        String query = "DELETE FROM Messaggio WHERE destinatario = ? AND mittente=? AND testo=?";
         try {
-            statement.executeUpdate(query);
+            statement = connection.prepareStatement(query);
+            statement.setString(1, msg.getDestinatario());
+            statement.setString(2, msg.getMittente());
+            statement.setString(3, msg.getTesto());
+            statement.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +69,7 @@ public class Utilita {
         return true;
     }
 
-    public void close(){
+    public void close() {
         try {
             resultSet.close();
             statement.close();
@@ -74,64 +80,42 @@ public class Utilita {
     }
 
     public String cerca(String user, String msg, String tipo) {
-        String query="CREATE VIEW elem AS SELECT * FROM messaggio WHERE destinatario='"+user+"' OR mittente='" + user + "';";
-        String out="";
+        String query = null;
+        String out = "";
+        switch (tipo) {
+            case "mittente":
+                query = "SELECT * FROM Messaggio WHERE mittente LIKE ? AND (destinatario=? OR mittente=?) ";
+                break;
+            case "destinatario":
+                query = "SELECT * FROM Messaggio WHERE destinatario LIKE ? AND (destinatario=? OR mittente=?)";
+                break;
+            case "messaggio":
+                query = "SELECT * FROM Messaggio WHERE testo LIKE ? AND (destinatario=? OR mittente=?)";
+                break;
+        }
         try {
-            statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + msg + "%");
+            statement.setString(2, user);
+            statement.setString(3, user);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td></tr>");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        switch (tipo){
-            case "mittente":
-                query = "SELECT * FROM elem WHERE mittente LIKE '%" + msg + "%';";
-                try {
-                    resultSet = statement.executeQuery(query);
-                    while (resultSet.next())
-                    {
-                            out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
-                    }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "destinatario":
-                 query= "SELECT * FROM elem WHERE destinatario LIKE '%" + msg + "%';";
-
-                try {
-                    resultSet = statement.executeQuery(query);
-                    while (resultSet.next())
-                    {
-                        out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            break;
-            case "messaggio":
-                query= "SELECT * FROM elem WHERE testo LIKE '%" + msg + "%';";
-
-                try {
-                    resultSet = statement.executeQuery(query);
-                    while (resultSet.next())
-                    {
-                        out=out.concat("<tr><td><p>"+ resultSet.getString("mittente")+"</p></td><td><p>"+ resultSet.getString("destinatario")+"</p></td><td><p>"+ resultSet.getString("testo")+"</p></td></tr>");
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            break;
-        }
         return out;
     }
 
-    public String trovatipo(String user){
-        String query="SELECT tipo FROM login WHERE user= '" + user +"';";
+    public String trovatipo(String user) {
+        String query = "SELECT tipo FROM Personale WHERE user=?";
         try {
-            resultSet = statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            statement.setString(1, user);
+            resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getString("tipo");
 
@@ -141,5 +125,35 @@ public class Utilita {
         return null;
     }
 
+    //Controlla che due user siano nella stessa farmacia
+    public boolean controlla(String x, String y) {
+        String query = "SELECT idfarmacia FROM Personale WHERE user= ?";
+
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, x);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                x = String.valueOf(resultSet.getInt("idfarmacia"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        query = "SELECT idfarmacia FROM Personale WHERE user= ?";
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, y);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                y = String.valueOf(resultSet.getInt("idfarmacia"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return y.equals(x);
+    }
 }
 

@@ -14,8 +14,8 @@
             <forward name="success" path="/WEB-INF/results/logout.jsp"/>
         </action>
         <action path="/creafarmacia" type="actions.CreaFarmaciaAction">
-            <forward name="success" path="/WEB-INF/results/logout.jsp"/>
-            <forward name="bad-farmacia" path="/WEB-INF/results/logout.jsp"/>
+            <forward name="success" path="/WEB-INF/results/confirm.jsp"/>
+            <forward name="bad-farmacia" path="/WEB-INF/results/error.jsp"/>
         </action>
         <action path="/creamessaggio" type="actions.CreaMessaggioAction">
             <forward name="success" path="/chat/listmsg.jsp"/>

@@ -7,6 +7,23 @@ public class LoginData implements java.io.Serializable {
     private String user;
     private boolean con;
     private String log;
+    private int idfarmacia;
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public int getIdfarmacia() {
+        return idfarmacia;
+    }
+
+    public void setIdfarmacia(int idfarmacia) {
+        this.idfarmacia = idfarmacia;
+    }
 
     public String getUser() {
         return user;
