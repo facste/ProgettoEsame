@@ -7,12 +7,12 @@ import java.util.ArrayList;
 /**
  * Created by facst on 30/05/2017.
  */
-public class Utilita {
+public class UtilitaMessaggi {
     private Connection connection;
     private ResultSet resultSet;
     private PreparedStatement statement;
 
-    public Utilita() {
+    public UtilitaMessaggi() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");

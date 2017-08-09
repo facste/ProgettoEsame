@@ -26,6 +26,8 @@ $(document).ready(function() {
         var pass = $.trim($('#pass').val());
         var telefono = $.trim($('#tel').val());
         var indirizzo = $.trim($('#if').val());
+        var cognomet = $.trim($('#cognomet').val());
+        var user = $.trim($('#user').val());
         if (namef === ''  || namef.search(';') != -1) {
             alert('Nome farmacia vuoto o contenente caratteri illegatli [; ]');
             return false;
@@ -44,6 +46,14 @@ $(document).ready(function() {
         }
         if (telefono === ''  || !$.isNumeric(telefono)) {
             alert('Numero telefono non valido (può contenere solo numeri)');
+            return false;
+        }
+        if (user === ''  || user.search(';') != -1) {
+            alert('Indirizzo farmacia vuoto o contenente caratteri illegatli [; ]');
+            return false;
+        }
+        if (cognomet === ''  || cognomet.search(';') != -1) {
+            alert('Indirizzo farmacia vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
     });

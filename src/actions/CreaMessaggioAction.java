@@ -5,7 +5,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import util.Utilita;
+import util.UtilitaMessaggi;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +29,7 @@ public class CreaMessaggioAction extends Action {
         LoginData login = (LoginData) session.getAttribute("login");
         String mittente = login.getUser();
         String tipo = login.getTipo();
-        Utilita ut = new Utilita();
+        UtilitaMessaggi ut = new UtilitaMessaggi();
         boolean fail=false;
         ArrayList<String> tipodest = new ArrayList<String>();
         ArrayList<Boolean> controllo = new ArrayList<Boolean>();

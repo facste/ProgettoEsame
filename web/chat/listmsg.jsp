@@ -6,10 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ include file="/stili/chat/head.jsp" %>
-<%@page import="util.Utilita" %>
+<%@page import="util.UtilitaMessaggi" %>
 
 <% if(request.getParameter("mittente")!=null) {
-    Utilita eliminariga= new Utilita();
+    UtilitaMessaggi eliminariga= new UtilitaMessaggi();
     eliminariga.elimina(request.getParameter("mittente"),request.getParameter("destinatario"), request.getParameter("messaggio"));}%>
 <% if(request.getParameter("messaggio")!=null) {%>
     <%=request.getParameter("messaggio")%>
@@ -28,7 +28,7 @@
         <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th><th>I/R</th><th>Elimina</th></tr>
         </thead>
         <tbody>
-        <% Utilita listamessaggi= new Utilita();%>
+        <% UtilitaMessaggi listamessaggi= new UtilitaMessaggi();%>
         <%=listamessaggi.listaMessaggi(login.getUser())%>
         <%listamessaggi.close();%>
         </tbody>

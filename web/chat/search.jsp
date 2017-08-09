@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/stili/chat/head.jsp" %>
-<%@page import="util.Utilita" %>
+<%@page import="util.UtilitaMessaggi" %>
 <%String msg= request.getParameter("cercamsg");
 String tipo= request.getParameter("tipo");%>
 
@@ -17,7 +17,7 @@ String tipo= request.getParameter("tipo");%>
         <tr><th>Mittente</th><th>Destinatario</th><th>Messaggio</th></tr>
         </thead>
         <tbody>
-        <% Utilita listamessaggi= new Utilita();%>
+        <% UtilitaMessaggi listamessaggi= new UtilitaMessaggi();%>
         <%=listamessaggi.cerca(login.getUser(),msg,tipo)%>
         <%listamessaggi.close();%>
         </tbody>
