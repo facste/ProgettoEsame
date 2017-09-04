@@ -6,7 +6,8 @@
     <link href="/stili/style.css" rel="stylesheet" type="text/css">
     <script src="/libraries/jquery.js"></script>
     <script src="/libraries/jquery.sticky-kit.js"></script>
-    <script src="/utilities/util.js"></script>
+    <script src="/libraries/jquery.tablesorter.js"></script>
+    <script src="/utilities/utillogin.js"></script>
 </head>
 <body>
 <jsp:useBean id="login" scope="session" class="beans.LoginData" />

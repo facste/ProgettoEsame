@@ -40,7 +40,7 @@ body{
     border-radius: 15px/15px;
     align-content: center;
 }
-#invio, .invio{
+#invio, .invio, .add, .sub{
     border-radius: 15px/15px;
 }
 #logo{

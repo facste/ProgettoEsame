@@ -44,7 +44,7 @@ public class UtilitaMessaggi {
         return out;
     }
 
-    public boolean elimina(String mittente, String destinatario, String messaggio) {
+    public void elimina(String mittente, String destinatario, String messaggio) {
         Messaggio msg = new Messaggio(mittente.substring(mittente.indexOf("<p>") + 3, mittente.indexOf("</p>"))
                 , destinatario.substring(destinatario.indexOf("<p>") + 3, destinatario.indexOf("</p>"))
                 , messaggio.substring(messaggio.indexOf("<p>") + 3, messaggio.indexOf("</p>")));
@@ -58,7 +58,6 @@ public class UtilitaMessaggi {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
         try {
             statement.close();
@@ -66,7 +65,6 @@ public class UtilitaMessaggi {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     public void close() {
