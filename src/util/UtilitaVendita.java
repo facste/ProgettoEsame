@@ -40,7 +40,7 @@ public class UtilitaVendita {
                 out = out.concat("<tr><td><p>" + resultSet.getInt(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td>");
                 if (!tipo.equals("OB"))
                     out = out.concat("<td><p>" + resultSet.getBigDecimal(3) + "</p></td>");
-                out = out.concat("<td><p>" + resultSet.getBigDecimal(4) + " &#8364</p></td><td>" + resultSet.getInt(5) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x + "\" value=\"-\"><input class=\"ordinare\"type=\"button\" id=\"ord" + x++ + "\" value=\"Ordina\"></td></tr>");
+                out = out.concat("<td><p>" + resultSet.getBigDecimal(4) + " &#8364</p></td><td>" + resultSet.getInt(5) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x++ + "\" value=\"-\">");
             }
 
         } catch (Exception e) {
@@ -57,5 +57,10 @@ public class UtilitaVendita {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void acaso(Object id, Object quantità){
+        int[]q= (int[]) quantità;
+        String[]idp= (String[]) quantità;
+        System.out.println(idp.toString());
     }
 }

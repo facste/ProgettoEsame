@@ -83,7 +83,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    //NUOVA FARMACIA
+    //NUOVO OPERATORE
     $('#creaop').submit(function () {
         var nameop = $.trim($('#no').val());
         var pass = $.trim($('#pass').val());
@@ -105,5 +105,27 @@ $(document).ready(function () {
             alert('Cognome operatore vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
+    });
+});
+
+$(document).ready(function () {
+    //NUOVA VENDITA
+    $('.vendi').click(function () {
+        var rowCount = $('#lm').find('tr').length;
+        var idprod = [], q=[];
+        for (var i = 0; i < rowCount; i++) {
+            var txt = $("input[name=ordina" + i + "]");
+            if (parseInt(txt.val()) > 0 || $.isNumeric(txt.val())) {
+                var $tr = $(this).parents("tr");
+                idprod.push($tr.find("td").eq(0).html().replace(/[^0-9]/g, '')); // idprodotto
+                q.push(txt.val());
+            }
+        }
+
+        $.post("vendi.jsp", {prodotti: idprod, quantita: q}, function () {
+            alert('Ordine effettuato con successo');
+            location.reload();
+        });
+
     });
 });

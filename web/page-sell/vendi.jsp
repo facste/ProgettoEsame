@@ -7,6 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../stili/login/head.jsp" %>
+<% if (request.getParameter("prodotti") != null) {
+    UtilitaVendita aggiungiprodotti = new UtilitaVendita();
+    aggiungiprodotti.acaso(request.getParameter("prodotti"), request.getParameter("quantita"));
+    aggiungiprodotti.close();
+}%>
 <div style="overflow-x:auto;" id="log">
 
     <table id="lm">
@@ -21,12 +26,13 @@
         </tr>
         </thead>
         <tbody>
-        <% UtilitaVendita listamagazzino = new UtilitaVendita();%>
-        <%=listamagazzino.listaProdotti(login.getIdfarmacia(), login.getTipo())%>
-        <%listamagazzino.close();%>
+        <% UtilitaVendita vendita = new UtilitaVendita();%>
+        <%=vendita.listaProdotti(login.getIdfarmacia(), login.getTipo())%>
+        <%vendita.close();%>
         </tbody>
     </table>
 
 </div>
+<input class="vendi" type="button" id="vendi" value="vendi">
 
 <%@ include file="../stili/login/bot.jsp" %>
