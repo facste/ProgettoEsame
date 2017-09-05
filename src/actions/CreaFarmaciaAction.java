@@ -1,6 +1,5 @@
 package actions;
 
-import beans.LoginData;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -8,7 +7,6 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.*;
 
 /**
@@ -28,7 +26,7 @@ public class CreaFarmaciaAction extends Action {
         Connection connection = null;
         ResultSet resultSet = null;
         PreparedStatement statement = null;
-        String query="SELECT * FROM Personale WHERE user= ? AND tipo='TF'";
+        String query = "SELECT * FROM Personale WHERE user= ? AND tipo='TF'";
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
@@ -65,8 +63,7 @@ public class CreaFarmaciaAction extends Action {
                     request.setAttribute("errore", "Impossibile creare farmacia");
                     fail = true;
                 }
-            }
-            else{
+            } else {
                 request.setAttribute("errore", "Titolare Farmacia già esistente");
                 fail = true;
             }

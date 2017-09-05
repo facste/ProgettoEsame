@@ -25,7 +25,7 @@
             <li><a href="/chat/listmsg.jsp">Chat</a></li>
         <%}else if(login.getTipo().equals("TF")){%>
             <li><a href=/page-reg/creafarmacia.jsp>Statistiche Farmacia</a></li>
-            <li><a href=/page-reg/creafarmacia.jsp>Registra Operatore</a></li>
+            <li><a href=/page-tf/newoperator.jsp>Registra Operatore</a></li>
             <li><a href="/page-tf/magazzino.jsp">Magazzino</a></li>
             <li><a href="">Vendi</a></li>
             <li><a href="/chat/listmsg.jsp">Chat</a></li>

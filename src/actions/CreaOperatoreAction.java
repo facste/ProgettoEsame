@@ -52,8 +52,7 @@ public class CreaOperatoreAction extends Action {
                 request.setAttribute("errore", "Operatore Farmacia già esistente");
                 fail = true;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errore", "Impossibile aggiungere operatore");
         } finally

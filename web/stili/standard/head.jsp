@@ -24,7 +24,7 @@
         <li><a href=/page-std/chisiamo.jsp>Chi Siamo</a></li>
         <li><a href="/page-std/contatti.jsp">Contatti</a></li>
         <li style="float:right">
-            <form action="login.do" method="post" id="log">
+            <form action="/login.do" method="post" id="log">
                 Username <input type="text" class="txt" id="user" name="user"><br>
                 Password <input type="password" maxlength="20" class="txt" id="psw" name="psw"/><br>
                 <input type="submit" id="invio" value="Login">
