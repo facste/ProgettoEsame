@@ -9,11 +9,13 @@ $(document).ready(function () {
     $(".add").click(function () {
         var elemento = $(this).attr('id').replace(/[^0-9]/g, '');
         var txt = $("input[name=ordina" + elemento + "]");
+        //var size = $('#lm').children('thead').length
+        //var quantita = $tr.find("td").eq(size-2).html().replace(/[^0-9]/g, ''); // quantita
+        //if (parseInt(txt.val()) <= quantita)
         txt.val(parseInt(txt.val()) + 1);
 
     });
-});
-$(document).ready(function () {
+
     //DIMINUIZIONE ELEMENTO
     $(".sub").click(function () {
         var elemento = $(this).attr('id').replace(/[^0-9]/g, '');
@@ -21,8 +23,7 @@ $(document).ready(function () {
         if (parseInt(txt.val()) != 0)
             txt.val(parseInt(txt.val()) - 1);
     });
-});
-$(document).ready(function () {
+
     //Ordine da fare
     $(".ordinare").click(function () {
         var elemento = $(this).attr('id').replace(/[^0-9]/g, '');
@@ -40,8 +41,6 @@ $(document).ready(function () {
             });
         }
     });
-});
-$(document).ready(function () {
     //NUOVA FARMACIA
     $('#creaf').submit(function () {
         var namef = $.trim($('#nf').val());
@@ -80,16 +79,14 @@ $(document).ready(function () {
             return false;
         }
     });
-});
 
-$(document).ready(function () {
     //NUOVO OPERATORE
     $('#creaop').submit(function () {
         var nameop = $.trim($('#no').val());
         var pass = $.trim($('#pass').val());
         var cognomeop = $.trim($('#co').val());
         var user = $.trim($('#user').val());
-        if (nameop === '' || namef.search(';') != -1) {
+        if (nameop === '' || nameop.search(';') != -1) {
             alert('Nome operatore vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
@@ -101,31 +98,41 @@ $(document).ready(function () {
             alert('Username operatore vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
-        if (cognomeop === '' || cognomet.search(';') != -1) {
+        if (cognomeop === '' || cognomeop.search(';') != -1) {
             alert('Cognome operatore vuoto o contenente caratteri illegatli [; ]');
             return false;
         }
     });
-});
 
-$(document).ready(function () {
     //NUOVA VENDITA
     $('.vendi').click(function () {
-        var rowCount = $('#lm').find('tr').length;
-        var idprod = [], q=[];
+        var rowCount = $('#lm').find('tr').length - 1;
+        var idprod = [], q = [];
         for (var i = 0; i < rowCount; i++) {
             var txt = $("input[name=ordina" + i + "]");
-            if (parseInt(txt.val()) > 0 || $.isNumeric(txt.val())) {
-                var $tr = $(this).parents("tr");
+            if (parseInt(txt.val()) > 0 && $.isNumeric(txt.val())) {
+                var $tr = $(txt).parents("tr");
                 idprod.push($tr.find("td").eq(0).html().replace(/[^0-9]/g, '')); // idprodotto
                 q.push(txt.val());
             }
         }
-
-        $.post("vendi.jsp", {prodotti: idprod, quantita: q}, function () {
-            alert('Ordine effettuato con successo');
-            location.reload();
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            url: "../startsell.do",
+            type: 'POST',
+            data: $.param({prodotti: idprod, quantita: q}, true),
+            success: function (response) {
+                if(response==="error")
+                    window.location.href = "/page-sell/error.jsp"
+                if(response==="sell-made")
+                    window.location.href = "/page-sell/sell-made.jsp"
+                if(response==="sell-continue")
+                    window.location.href = "/page-sell/sell-continue.jsp"
+            },
+            error: function (e) {
+                alert('Error: ' + e);
+            }
         });
-
+            return true;
     });
 });

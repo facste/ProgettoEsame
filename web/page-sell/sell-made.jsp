@@ -1,13 +1,14 @@
-<%@ page import="util.UtilitaVendita" %><%--
+<%@ page import="util.UtilitaVendita" %>
+<%@ page import="beans.ProdottoAcquistato" %><%--
   Created by IntelliJ IDEA.
   User: facst
-  Date: 05/09/2017
-  Time: 10:26
+  Date: 07/09/2017
+  Time: 15:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../stili/login/head.jsp" %>
-
+<jsp:useBean id="acquisto" scope="session" class="beans.ListaAcquisto"/>
 <div style="overflow-x:auto;" id="log">
 
     <table id="lm">
@@ -15,20 +16,16 @@
         <tr>
             <th>Codice Prodottto</th>
             <th>Nome prodotto</th>
-            <%if (!login.getTipo().equals("OB")) %><th>Ricetta</th>
             <th>Prezzo</th>
             <th>Quantità</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
         <% UtilitaVendita vendita = new UtilitaVendita();%>
-        <%=vendita.listaProdotti(login.getIdfarmacia(), login.getTipo())%>
-        <%vendita.close();%>
+        <%=vendita.listaAcquisto(acquisto)%>
         </tbody>
     </table>
-    <input class="vendi" type="button" id="vendi" value="vendi" style="float:right;">
+<p style="float: right", font-size:="125%"  ><%= vendita.prezzo(acquisto)%></p>
+    <%vendita.close();%>
 </div>
-
-
 <%@ include file="../stili/login/bot.jsp" %>

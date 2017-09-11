@@ -25,5 +25,6 @@
             <forward name="success" path="/chat/listmsg.jsp"/>
             <forward name="error" path="/WEB-INF/results/error.jsp"/>
         </action>
+        <action path="/startsell" type="actions.StartSellAction"/>
     </action-mappings>
 </struts-config>

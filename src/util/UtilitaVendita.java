@@ -1,5 +1,9 @@
 package util;
 
+import beans.ListaAcquisto;
+import beans.ProdottoAcquistato;
+
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,9 +30,9 @@ public class UtilitaVendita {
     public String listaProdotti(int farmacia, String tipo) {
         String query;
         if (!tipo.equals("OB")) {
-            query = "SELECT Prodotto.ID, Prodotto.nome, Prodotto.ricetta, Prodotto.costo, Immagazzina.quantità FROM Prodotto JOIN Immagazzina ON Prodotto.ID = Immagazzina.idprodotto WHERE idfarmacia=?";
+            query = "SELECT Prodotto.ID, Prodotto.nome, Prodotto.ricetta, Prodotto.costo, Immagazzina.quantità FROM Prodotto JOIN Immagazzina ON Prodotto.ID = Immagazzina.idprodotto WHERE idfarmacia=? AND quantità>0";
         } else
-            query = "SELECT Prodotto.ID, Prodotto.nome, Prodotto.ricetta, Prodotto.costo, Immagazzina.quantità FROM Prodotto JOIN Immagazzina ON Prodotto.ID = Immagazzina.idprodotto WHERE idfarmacia=? AND ricetta!=1 ";
+            query = "SELECT Prodotto.ID, Prodotto.nome, Prodotto.ricetta, Prodotto.costo, Immagazzina.quantità FROM Prodotto JOIN Immagazzina ON Prodotto.ID = Immagazzina.idprodotto WHERE idfarmacia=? AND ricetta!=1 AND quantità>0";
         String out = "";
 
         try {
@@ -58,9 +62,41 @@ public class UtilitaVendita {
             e.printStackTrace();
         }
     }
-    public void acaso(Object id, Object quantità){
-        int[]q= (int[]) quantità;
-        String[]idp= (String[]) quantità;
-        System.out.println(idp.toString());
+
+    public String listaAcquisto(ListaAcquisto acquisto) {
+        String query;
+        String out = "";
+        try {
+            for (ProdottoAcquistato prodottoAcquistato : acquisto) {
+                query = "SELECT nome,costo FROM Prodotto WHERE ID=?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, prodottoAcquistato.getProdotto());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto()+ "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + prodottoAcquistato.getQuantita() + "</p></td></tr>");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+    public String prezzo(ListaAcquisto acquisto) {
+        String query;
+        double out = 0;
+        try {
+            for (ProdottoAcquistato prodottoAcquistato : acquisto) {
+                query = "SELECT costo FROM Prodotto WHERE ID=?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, prodottoAcquistato.getProdotto());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    out += resultSet.getBigDecimal(1).doubleValue()* prodottoAcquistato.getQuantita();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return String.valueOf(out)+" €";
     }
 }

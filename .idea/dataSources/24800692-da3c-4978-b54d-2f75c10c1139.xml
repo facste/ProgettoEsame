@@ -36,7 +36,6 @@
     <column id="19" parent="3" name="cfpaziente">
       <Position>3</Position>
       <DataType>STRING(16)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <key id="20" parent="3">
       <ColNames>CODICE</ColNames>

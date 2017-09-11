@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/stili/login/head.jsp" %>
-<h1>Qui potrai aggiungenere delle nuove farmacie</h1> <br>
+<h1>Qui potrai aggiungenere nuovi operatori pr la tua farmacia</h1> <br>
 <div align="center">
     <form action="/creaop.do" method="post" id="creaop">
         <p class="form">
@@ -28,7 +28,7 @@
             <label>Username</label> *<input type="text" class="txt" name="user" id="user"><br><br>
         </p>
         <p class="form">
-            <label>Password Titolare</label> *<input type="password" class="txt" name="pass" id="pass"><br><br>
+            <label>Password</label> *<input type="password" class="txt" name="pass" id="pass"><br><br>
         </p>
         <input type="submit" value="Crea">
         <input type="reset" value="Reset">
