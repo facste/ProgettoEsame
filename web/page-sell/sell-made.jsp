@@ -25,7 +25,7 @@
         <%=vendita.listaAcquisto(acquisto)%>
         </tbody>
     </table>
-<p style="float: right", font-size:="125%"  ><%= vendita.prezzo(acquisto)%></p>
+<p style="float: right", font-size:="150%"  >Prezzo: <%= vendita.prezzo(acquisto)%></p>
     <%vendita.close();%>
 </div>
 <%@ include file="../stili/login/bot.jsp" %>

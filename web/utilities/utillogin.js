@@ -9,10 +9,11 @@ $(document).ready(function () {
     $(".add").click(function () {
         var elemento = $(this).attr('id').replace(/[^0-9]/g, '');
         var txt = $("input[name=ordina" + elemento + "]");
-        //var size = $('#lm').children('thead').length
-        //var quantita = $tr.find("td").eq(size-2).html().replace(/[^0-9]/g, ''); // quantita
-        //if (parseInt(txt.val()) <= quantita)
-        txt.val(parseInt(txt.val()) + 1);
+        var $tr = $(this).parents("tr");
+        var size = $tr.children("td").length;
+        var quantita = $tr.find("td").eq(size - 2).html().replace(/[^0-9]/g, ''); // quantita
+        if (parseInt(txt.val()) < quantita)
+            txt.val(parseInt(txt.val()) + 1);
 
     });
 
@@ -122,17 +123,17 @@ $(document).ready(function () {
             type: 'POST',
             data: $.param({prodotti: idprod, quantita: q}, true),
             success: function (response) {
-                if(response==="error")
-                    window.location.href = "/page-sell/error.jsp"
-                if(response==="sell-made")
-                    window.location.href = "/page-sell/sell-made.jsp"
-                if(response==="sell-continue")
-                    window.location.href = "/page-sell/sell-continue.jsp"
+                if (response === "error")
+                    window.location.href = "/page-sell/error.jsp";
+                if (response === "sell-made")
+                    window.location.href = "/page-sell/sell-made.jsp";
+                if (response === "sell-continue")
+                    window.location.href = "/page-sell/sell-continue.jsp";
             },
             error: function (e) {
                 alert('Error: ' + e);
             }
         });
-            return true;
+        return true;
     });
 });

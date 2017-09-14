@@ -37,7 +37,7 @@ public class UtilitàMagazzino {
             resultSet = statement.executeQuery();
             int x = 0;
             while (resultSet.next()) {
-                out = out.concat("<tr><td><p>" + resultSet.getInt(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + resultSet.getBigDecimal(3) + " &#8364</p></td><td>" + resultSet.getInt(4) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x + "\" value=\"-\"><input class=\"ordinare\"type=\"button\" id=\"ord" + x++ + "\" value=\"Ordina\"></td></tr>");
+                out = out.concat("<tr><td><p>" + resultSet.getInt(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + resultSet.getBigDecimal(3) + " &#8364</p></td><td>" + resultSet.getInt(4) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\" readonly=\"readonly\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x + "\" value=\"-\"><input class=\"ordinare\"type=\"button\" id=\"ord" + x++ + "\" value=\"Ordina\"></td></tr>");
             }
 
         } catch (Exception e) {

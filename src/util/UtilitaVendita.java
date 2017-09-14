@@ -44,7 +44,7 @@ public class UtilitaVendita {
                 out = out.concat("<tr><td><p>" + resultSet.getInt(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td>");
                 if (!tipo.equals("OB"))
                     out = out.concat("<td><p>" + resultSet.getBigDecimal(3) + "</p></td>");
-                out = out.concat("<td><p>" + resultSet.getBigDecimal(4) + " &#8364</p></td><td>" + resultSet.getInt(5) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x++ + "\" value=\"-\">");
+                out = out.concat("<td><p>" + resultSet.getBigDecimal(4) + " &#8364</p></td><td>" + resultSet.getInt(5) + "</p></td><td><p><input type=\"text\" name=\"ordina" + x + "\" size=\"3\" id=\"ordina" + x + "\" value=\"0\" class=\"ordina\" readonly=\"readonly\"><input class=\"add\"type=\"button\" id=\"add" + x + "\" value=\"+\"><input class=\"sub\"type=\"button\" id=\"sub" + x++ + "\" value=\"-\">");
             }
 
         } catch (Exception e) {
@@ -97,6 +97,25 @@ public class UtilitaVendita {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return String.valueOf(out)+" €";
+        return String.valueOf(out).substring(0,5)+" €";
+    }
+
+    public String listaRicetta(ListaAcquisto acquisto) {
+        String query;
+        String out = "";
+        try {
+            for (ProdottoAcquistato prodottoAcquistato : acquisto) {
+                query = "SELECT nome,costo FROM Prodotto WHERE ID=?";
+                statement = connection.prepareStatement(query);
+                statement.setInt(1, prodottoAcquistato.getProdotto());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto()+ "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + prodottoAcquistato.getQuantita() + "</p></td></tr>");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out;
     }
 }
