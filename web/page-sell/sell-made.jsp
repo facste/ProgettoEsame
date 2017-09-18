@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page import="util.UtilitaVendita" %>
 <%@ page import="beans.ProdottoAcquistato" %><%--
   Created by IntelliJ IDEA.
@@ -28,4 +29,5 @@
 <p style="float: right", font-size:="150%"  >Prezzo: <%= vendita.prezzo(acquisto)%></p>
     <%vendita.close();%>
 </div>
+<c:remove var="acquisto" scope="session" />
 <%@ include file="../stili/login/bot.jsp" %>

@@ -35,6 +35,7 @@
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/catalina-storeconfig.jar" />
           <element id="file-copy" path="$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.16.1/sqlite-jdbc-3.16.1.jar" />
           <element id="file-copy" path="C:/Program Files/Apache Software Foundation/Tomcat 8.5/lib/sqlite-jdbc-3.16.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/jstl-1.2.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="ProgettoEsame/web/Web" />

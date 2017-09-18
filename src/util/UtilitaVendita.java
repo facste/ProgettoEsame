@@ -73,7 +73,7 @@ public class UtilitaVendita {
                 statement.setInt(1, prodottoAcquistato.getProdotto());
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto()+ "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + prodottoAcquistato.getQuantita() + "</p></td></tr>");
+                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto() + "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + prodottoAcquistato.getQuantita() + "</p></td></tr>");
                 }
             }
         } catch (Exception e) {
@@ -81,6 +81,7 @@ public class UtilitaVendita {
         }
         return out;
     }
+
     public String prezzo(ListaAcquisto acquisto) {
         String query;
         double out = 0;
@@ -91,13 +92,13 @@ public class UtilitaVendita {
                 statement.setInt(1, prodottoAcquistato.getProdotto());
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    out += resultSet.getBigDecimal(1).doubleValue()* prodottoAcquistato.getQuantita();
+                    out += resultSet.getBigDecimal(1).doubleValue() * prodottoAcquistato.getQuantita();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return String.valueOf(out).substring(0,5)+" €";
+        return String.valueOf(out).substring(0, 5) + " €";
     }
 
     public String listaRicetta(ListaAcquisto acquisto) {
@@ -105,12 +106,13 @@ public class UtilitaVendita {
         String out = "";
         try {
             for (ProdottoAcquistato prodottoAcquistato : acquisto) {
-                query = "SELECT nome,costo FROM Prodotto WHERE ID=?";
+                query = "SELECT nome FROM Prodotto WHERE ID=? AND ricetta=1";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, prodottoAcquistato.getProdotto());
                 resultSet = statement.executeQuery();
+                int x = 0;
                 if (resultSet.next()) {
-                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto()+ "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><p>" + resultSet.getString(2) + "</p></td><td><p>" + prodottoAcquistato.getQuantita() + "</p></td></tr>");
+                    out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto() + "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><input type=\"text\" name=\"cr" + x + "\" id=\"cr" + x++ + "\" class=\"cr\" ></td></tr>");
                 }
             }
         } catch (Exception e) {

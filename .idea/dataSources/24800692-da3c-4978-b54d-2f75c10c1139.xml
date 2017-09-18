@@ -12,7 +12,7 @@
     <table id="6" parent="2" name="Immagazzina"/>
     <table id="7" parent="2" name="Medico"/>
     <table id="8" parent="2" name="Messaggio"/>
-    <table id="9" parent="2" name="Obbligo Ricetta"/>
+    <table id="9" parent="2" name="ObbligoRicetta"/>
     <table id="10" parent="2" name="Paziente"/>
     <table id="11" parent="2" name="Personale"/>
     <table id="12" parent="2" name="Prodotto"/>
@@ -176,7 +176,7 @@
       <RefTableName>Personale</RefTableName>
       <RefColNames>user</RefColNames>
     </foreign-key>
-    <column id="50" parent="9" name="codiceacquisto">
+    <column id="50" parent="9" name="idacquisto">
       <DataType>INTEGER|0</DataType>
     </column>
     <column id="51" parent="9" name="idricetta">
@@ -184,7 +184,7 @@
       <DataType>INTEGER|0</DataType>
     </column>
     <foreign-key id="52" parent="9">
-      <ColNames>codiceacquisto</ColNames>
+      <ColNames>idacquisto</ColNames>
       <RefTableName>Acquisto</RefTableName>
       <RefColNames>CODICE</RefColNames>
     </foreign-key>

@@ -136,4 +136,22 @@ $(document).ready(function () {
         });
         return true;
     });
+    $('.ricetta').click(function () {
+        var rowCount = $('#lm').find('tr').length - 1;
+        for (var i = 0; i < rowCount; i++) {
+            var txt = $("input[name=cr" + i + "]");
+            if (parseInt(txt.length) === 0) {
+                alert('Riempi tutti i campi');
+                return false;
+            }
+        }
+        return true;
+    });
+    $('#creapat').submit(function () {
+        var namepat = $.trim($('#np').val());
+        if (namepat === '' || namepat.search(';') != -1) {
+            alert('Nome paziente vuoto o contenente caratteri illegatli [; ]');
+            return false;
+        }
+    });
 });

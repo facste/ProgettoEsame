@@ -27,7 +27,7 @@
         <%vendita.close();%>
         </tbody>
     </table>
-    <input class="vendi" type="button" id="vendi" value="vendi" style="float:right;">
+    <input class="vendi" type="button" id="vendi" value="Vendi" style="float:right;">
 </div>
 
 
