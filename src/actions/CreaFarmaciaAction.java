@@ -4,6 +4,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +29,8 @@ public class CreaFarmaciaAction extends Action {
         PreparedStatement statement = null;
         String query = "SELECT * FROM Personale WHERE user= ? AND tipo='TF'";
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
+
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
             resultSet = statement.executeQuery();
@@ -74,7 +75,6 @@ public class CreaFarmaciaAction extends Action {
             try {
                 resultSet.close();
                 statement.close();
-                connection.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

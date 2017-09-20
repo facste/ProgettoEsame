@@ -19,9 +19,8 @@ public class UtilitaVendita {
 
     public UtilitaVendita() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
 
+            connection= DbHelper.getConn();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +56,6 @@ public class UtilitaVendita {
         try {
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

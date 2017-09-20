@@ -7,6 +7,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,7 @@ public class RicettaAction extends Action {
         ArrayList<String> codRicette = new ArrayList<>();
         for (int i = 0; i < listaRicette.size(); i++)
             codRicette.add(request.getParameter("cr" + i));
-        boolean diffpatient = false, insertpatient = false;
+        boolean diffpatient = false, insertpatient = false, fail = false;
         String cf = null;
         Connection connection = null;
         ResultSet resultSet = null;
@@ -33,23 +34,27 @@ public class RicettaAction extends Action {
         String query;
         //Controllo che tutti gli id sia di unico paziente
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
             for (int i = 0; i < listaRicette.size(); i++) {
                 query = "SELECT cf FROM Ricetta WHERE ID=?";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, Integer.decode(codRicette.get(i)));
                 resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    if (cf == null)
-                        cf = resultSet.getString(1);
-                    else if (cf.equals(resultSet.getString(1)))
-                        diffpatient = true;
+                if (!resultSet.isBeforeFirst()) {
+                    request.setAttribute("errore", "ricetta non esistente");
+                    fail=true;
                 }
+                else
+                    while (resultSet.next()) {
+                        if (cf == null)
+                            cf = resultSet.getString(1);
+                        else if (cf.equals(resultSet.getString(1)))
+                            diffpatient = true;
+                    }
             }
             if (diffpatient)
                 request.setAttribute("errore", "Puoi usare un solo paziente alla volta");
-            else {
+            else if(!fail){
                 query = "SELECT count(*) FROM Paziente WHERE CF=?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, cf);
@@ -60,19 +65,19 @@ public class RicettaAction extends Action {
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 resultSet.close();
                 statement.close();
-                connection.close();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (diffpatient)
+        if (diffpatient ||fail)
             return (mapping.findForward("error"));
-        request.setAttribute("cf", cf);
+        request.getSession().setAttribute("cf", cf);
         request.getSession().setAttribute("idricette", codRicette);
         if (insertpatient)
             return (mapping.findForward("insert-patient"));

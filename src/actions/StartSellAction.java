@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import beans.ProdottoAcquistato;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,8 +40,7 @@ public class StartSellAction extends Action {
         int id = -1;
         boolean richiedeRicetta = false;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
             //Controllo che non ci siano ricette nell'acquisto
             query = "SELECT ID,ricetta FROM Prodotto WHERE ricetta=1";
             statement = connection.prepareStatement(query);
@@ -106,7 +106,6 @@ public class StartSellAction extends Action {
         try {
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

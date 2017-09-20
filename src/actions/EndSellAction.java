@@ -7,6 +7,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,29 +17,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by facst on 18/09/2017.
- */
 public class EndSellAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
         ListaAcquisto listaRicette = (ListaAcquisto) request.getSession().getAttribute("acquisto");
-        String cf = request.getParameter("cf");
+        String cf = (String) request.getSession().getAttribute("cf");
+        LoginData login = (LoginData) request.getSession().getAttribute("login");
+        ArrayList<String> ricette = (ArrayList<String>) request.getSession().getAttribute("idricette");
         //lista codici ricette
         boolean fail = false;
         Connection connection = null;
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         String query;
-        int result = -1;
-        int id = -1;
+        int id;
         int i = 0;
-        LoginData login = (LoginData) request.getSession().getAttribute("login");
-        ArrayList<String> ricette = (ArrayList<String>) request.getSession().getAttribute("idricette");
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
-            query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,? )";
+            connection= DbHelper.getConn();
+            query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,?)";
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Calendar cal = Calendar.getInstance();
@@ -86,10 +82,12 @@ public class EndSellAction extends Action {
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            fail = true;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 statement.close();
-                connection.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -100,6 +98,7 @@ public class EndSellAction extends Action {
             return (mapping.findForward("error"));
         }
         request.getSession().removeAttribute("idricette");
+        request.getSession().removeAttribute("cf");
         return (mapping.findForward("sell-made"));
     }
 

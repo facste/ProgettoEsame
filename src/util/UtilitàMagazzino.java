@@ -19,9 +19,7 @@ public class UtilitàMagazzino {
 
     public UtilitàMagazzino() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
-
+            connection= DbHelper.getConn();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,7 +48,6 @@ public class UtilitàMagazzino {
         try {
             resultSet.close();
             statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

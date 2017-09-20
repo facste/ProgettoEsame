@@ -5,26 +5,23 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 
-/**
- * Created by facst on 30/05/2017.
- */
 public class CreaPatientAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String np = request.getParameter("np");
-        String cf = request.getParameter("cf");
+        String cf = (String) request.getSession().getAttribute("cf");
         boolean fail = false;
         Connection connection = null;
         PreparedStatement statement = null;
         String query = "INSERT INTO Paziente VALUES (?,?)";
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
             statement = connection.prepareStatement(query);
             statement.setString(1, cf);
             statement.setString(2, np);
@@ -38,14 +35,12 @@ public class CreaPatientAction extends Action {
         {
             try {
                 statement.close();
-                connection.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         if (fail)
             return (mapping.findForward("error"));
-        request.setAttribute("cf", cf);
         return (mapping.findForward("sell"));
     }
 }

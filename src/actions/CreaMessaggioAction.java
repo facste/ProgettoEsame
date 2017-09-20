@@ -5,6 +5,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 import util.UtilitaMessaggi;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +49,8 @@ public class CreaMessaggioAction extends Action {
         PreparedStatement statement = null;
         String query = "";
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
+
             for (int i = 0; i < dest.length; i++) {
                 if ((tipodest.get(i).equals("REG") && tipo.equals("TF")) || (tipodest.get(i).equals("TF") && tipo.equals("REG")) && (!dest[i].equals(mittente)) || controllo.get(i)) {
 
@@ -68,8 +69,6 @@ public class CreaMessaggioAction extends Action {
             try {
 
                 statement.close();
-                connection.close();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

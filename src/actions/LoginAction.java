@@ -5,6 +5,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +26,7 @@ public class LoginAction extends Action {
         PreparedStatement statement = null;
         String query = "SELECT * FROM Personale WHERE user= ? AND psw=?";
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/facst/Desktop/ProgettoEsame/database/farmaciareg.sqlite");
+            connection= DbHelper.getConn();
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
             statement.setString(2, password);
@@ -51,7 +51,6 @@ public class LoginAction extends Action {
             try {
                 resultSet.close();
                 statement.close();
-                connection.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
