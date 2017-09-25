@@ -36,9 +36,8 @@ public class EndSellAction extends Action {
             connection= DbHelper.getConn();
             query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,?)";
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Calendar cal = Calendar.getInstance();
-            statement.setString(1, dateFormat.format(cal.getTime()));
+            statement.setDate(1, new java.sql.Date(cal.getTime().getTime()));
             statement.setString(2, login.getUser());
             statement.setString(3, (listaRicette.countRicetta() > 0) ? cf : null);
             if (statement.executeUpdate() <= 0) {
@@ -48,16 +47,6 @@ public class EndSellAction extends Action {
                 id = (Integer) resultSet.getObject(1);
                 if (id != -1) {
                     for (ProdottoAcquistato prod : listaRicette) {
-                        if (prod.isRicetta()) {
-                            query = "INSERT INTO ObbligoRicetta VALUES (?,?)";
-                            statement = connection.prepareStatement(query);
-                            statement.setInt(1, id);
-                            statement.setInt(2, Integer.decode(ricette.get(i++)));
-                            if (statement.executeUpdate() <= 0) {
-                                fail = true;
-                                break;
-                            }
-                        }
                         query = "UPDATE Immagazzina SET quantità= quantità-? WHERE idprodotto=? AND idfarmacia=?";
                         statement = connection.prepareStatement(query);
                         statement.setInt(1, prod.getQuantita());

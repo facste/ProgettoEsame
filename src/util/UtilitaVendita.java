@@ -96,19 +96,19 @@ public class UtilitaVendita {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return String.valueOf(out).substring(0, 5) + " €";
+        return String.valueOf(out).substring(0, 4) + " €";
     }
 
     public String listaRicetta(ListaAcquisto acquisto) {
         String query;
         String out = "";
+        int x = 0;
         try {
             for (ProdottoAcquistato prodottoAcquistato : acquisto) {
                 query = "SELECT nome FROM Prodotto WHERE ID=? AND ricetta=1";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, prodottoAcquistato.getProdotto());
                 resultSet = statement.executeQuery();
-                int x = 0;
                 if (resultSet.next()) {
                     out = out.concat("<tr><td><p>" + prodottoAcquistato.getProdotto() + "</p></td><td><p>" + resultSet.getString(1) + "</p></td><td><input type=\"text\" name=\"cr" + x + "\" id=\"cr" + x++ + "\" class=\"cr\" ></td></tr>");
                 }

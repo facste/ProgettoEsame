@@ -21,10 +21,10 @@
     <ul>
         <%if(login.getTipo().equals("REG")){%>
             <li><a href=/page-reg/creafarmacia.jsp>Registra Farmacia</a></li>
-            <li><a href="">Riepilogo Territorio</a></li>
+            <li><a href="/page-reg/allstats.jsp">Riepilogo Territorio</a></li>
             <li><a href="/chat/listmsg.jsp">Chat</a></li>
         <%}else if(login.getTipo().equals("TF")){%>
-            <li><a href=/page-reg/creafarmacia.jsp>Statistiche Farmacia</a></li>
+            <li><a href=/page-tf/stats.jsp>Statistiche Farmacia</a></li>
             <li><a href=/page-tf/newoperator.jsp>Registra Operatore</a></li>
             <li><a href="/page-tf/magazzino.jsp">Magazzino</a></li>
             <li><a href="/page-sell/vendi.jsp">Vendi</a></li>

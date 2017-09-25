@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -24,51 +25,82 @@ public class CreaMessaggioAction extends Action {
     //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI E TUTTI
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String[] dest = request.getParameter("dest").split(",");
+        String dest = request.getParameter("dest");
         String testo = request.getParameter("testo");
         HttpSession session = request.getSession(true);
         LoginData login = (LoginData) session.getAttribute("login");
         String mittente = login.getUser();
         String tipo = login.getTipo();
-        UtilitaMessaggi ut = new UtilitaMessaggi();
-        boolean fail=false;
-        ArrayList<String> tipodest = new ArrayList<String>();
-        ArrayList<Boolean> controllo = new ArrayList<Boolean>();
-        for (String destinatario : dest) {
-            String td = ut.trovatipo(destinatario);
-            controllo.add(ut.controlla(mittente, destinatario));
-            tipodest.add(td);
-            if (td == null) {
-                ut.close();
-                request.setAttribute("errore", "Impossibile creare messaggio");
-                return (mapping.findForward("error"));
-            }
-        }
-        ut.close();
+        UtilitaMessaggi utilitaMessaggi = new UtilitaMessaggi();
+        boolean fail = false;
         Connection connection = null;
         PreparedStatement statement = null;
         String query = "";
         try {
-            connection= DbHelper.getConn();
-
-            for (int i = 0; i < dest.length; i++) {
-                if ((tipodest.get(i).equals("REG") && tipo.equals("TF")) || (tipodest.get(i).equals("TF") && tipo.equals("REG")) && (!dest[i].equals(mittente)) || controllo.get(i)) {
-
+            connection = DbHelper.getConn();
+            boolean giusto = (tipo.equals("REG")) ? (utilitaMessaggi.trovatipo(dest).equals("TF")) : utilitaMessaggi.controlla(mittente, dest);
+            if (giusto) {
+                query = "INSERT INTO Messaggio(mittente, destinatario, testo) VALUES (?,?,?)";
+                statement = connection.prepareStatement(query);
+                statement.setString(1, mittente);
+                statement.setString(2, dest);
+                statement.setString(3, testo);
+                if (statement.executeUpdate() <= 0)
+                    fail = true;
+            } else {
+                ResultSet resultSet = null;
+                if (dest.equalsIgnoreCase("tutti") && tipo.equals("REG")) {
+                    query = "SELECT user FROM Personale WHERE tipo='TF'";
+                    statement = connection.prepareStatement(query);
+                    resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        query = "INSERT INTO Messaggio(mittente, destinatario, testo) VALUES (?,?,?)";
+                        statement = connection.prepareStatement(query);
+                        statement.setString(1, mittente);
+                        statement.setString(2, resultSet.getString(1));
+                        statement.setString(3, testo);
+                        if (statement.executeUpdate() <= 0)
+                            fail = true;
+                    }
+                } else if (dest.equalsIgnoreCase("tutti") && tipo.equals("TF")) {
+                    query = "SELECT user FROM Personale WHERE idfarmacia=? AND tipo!='TF'";
+                    statement = connection.prepareStatement(query);
+                    statement.setInt(1, login.getIdfarmacia());
+                    resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        query = "INSERT INTO Messaggio(mittente, destinatario, testo) VALUES (?,?,?)";
+                        statement = connection.prepareStatement(query);
+                        statement.setString(1, mittente);
+                        statement.setString(2, resultSet.getString(1));
+                        statement.setString(3, testo);
+                        if (statement.executeUpdate() <= 0)
+                            fail = true;
+                    }
+                } else if(tipo.equals("TF") && dest.equalsIgnoreCase("regione")){
                     query = "INSERT INTO Messaggio(mittente, destinatario, testo) VALUES (?,?,?)";
                     statement = connection.prepareStatement(query);
                     statement.setString(1, mittente);
-                    statement.setString(2, dest[i]);
+                    statement.setString(2, dest);
                     statement.setString(3, testo);
-                    statement.executeUpdate();
-                } else fail = true;
+                    if (statement.executeUpdate() <= 0)
+                        fail = true;
+
+                }
+                else
+                    fail = true;
+                if (resultSet != null) {
+                    resultSet.close();
+                }
             }
+
         } catch (Exception e) {
-            fail=true;
+            fail = true;
             e.printStackTrace();
         } finally {
             try {
-
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

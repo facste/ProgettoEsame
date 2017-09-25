@@ -23,7 +23,7 @@ $(document).ready(function(){
     //PER RICERCA
     $('#cercamsg').submit(function () {
         var msg = $.trim($('#namemsg').val());
-        if (msg === ''  || msg.search(';') != -1) {
+        if (msg === ''  || msg.search(';') !== -1) {
             alert('Ricerca vuota o contenente caratteri illegatli [; ]');
             return false;
         }

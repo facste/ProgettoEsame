@@ -60,9 +60,8 @@ public class StartSellAction extends Action {
                 //NUOVO ACQUISTO
                 query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,NULL )";
                 statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Calendar cal = Calendar.getInstance();
-                statement.setString(1, dateFormat.format(cal.getTime()));
+                statement.setDate(1,  new java.sql.Date(cal.getTime().getTime()));
                 statement.setString(2, login.getUser());
                 result = statement.executeUpdate();
                 if (result <= 0) {

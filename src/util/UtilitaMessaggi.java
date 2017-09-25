@@ -14,7 +14,7 @@ public class UtilitaMessaggi {
 
     public UtilitaMessaggi() {
         try {
-            connection= DbHelper.getConn();
+            connection = DbHelper.getConn();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,12 +55,6 @@ public class UtilitaMessaggi {
             statement.setString(3, msg.getTesto());
             statement.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,13 +106,12 @@ public class UtilitaMessaggi {
             statement = connection.prepareStatement(query);
             statement.setString(1, user);
             resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getString("tipo");
+            return (resultSet.next()) ? resultSet.getString(1) : "null";
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "null";
     }
 
     //Controlla che due user siano nella stessa farmacia

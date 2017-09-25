@@ -12,9 +12,12 @@ $(document).ready(function () {
         var $tr = $(this).parents("tr");
         var size = $tr.children("td").length;
         var quantita = $tr.find("td").eq(size - 2).html().replace(/[^0-9]/g, ''); // quantita
-        if (parseInt(txt.val()) < quantita)
+        var page=location.pathname.split('/').slice(-1)[0];
+        if (page !== "magazzino.jsp") {
+            if (parseInt(txt.val()) < quantita)
+                txt.val(parseInt(txt.val()) + 1);
+        }else
             txt.val(parseInt(txt.val()) + 1);
-
     });
 
     //DIMINUIZIONE ELEMENTO
