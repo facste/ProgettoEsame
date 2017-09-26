@@ -13,34 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 
-/**
- * Created by facst on 28/04/2017.
- */
+
 public class StartSellAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
         int[] idprodotti = Arrays.stream(request.getParameterValues("prodotti")).mapToInt(Integer::parseInt).toArray();
         int[] quantita = Arrays.stream(request.getParameterValues("quantita")).mapToInt(Integer::parseInt).toArray();
         LoginData login = (LoginData) request.getSession().getAttribute("login");
-        Connection connection = null;
+        Connection connection;
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         ListaAcquisto prodottiAcquistati = new ListaAcquisto();
         boolean fail = false;
         String query;
-        int result = -1;
+        int result;
         //id acquisto;
-        int id = -1;
+        int id;
         boolean richiedeRicetta = false;
         try {
-            connection= DbHelper.getConn();
+            connection = DbHelper.getConn();
             //Controllo che non ci siano ricette nell'acquisto
             query = "SELECT ID,ricetta FROM Prodotto WHERE ricetta=1";
             statement = connection.prepareStatement(query);
@@ -61,7 +56,7 @@ public class StartSellAction extends Action {
                 query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,NULL )";
                 statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 Calendar cal = Calendar.getInstance();
-                statement.setDate(1,  new java.sql.Date(cal.getTime().getTime()));
+                statement.setDate(1, new java.sql.Date(cal.getTime().getTime()));
                 statement.setString(2, login.getUser());
                 result = statement.executeUpdate();
                 if (result <= 0) {
@@ -70,7 +65,7 @@ public class StartSellAction extends Action {
                     resultSet = statement.getGeneratedKeys();
                     id = (Integer) resultSet.getObject(1);
                     if (id != -1) {
-                        if (resultSet != null && resultSet.next())
+                        if (resultSet.next())
                             for (int i = 0; i < idprodotti.length; i++) {
                                 //SOTTRAGGO DAL MAGAZZINO
                                 query = "UPDATE Immagazzina SET quantità= quantità-? WHERE idprodotto=? AND idfarmacia=?";
@@ -99,12 +94,16 @@ public class StartSellAction extends Action {
                         fail = true;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            resultSet.close();
-            statement.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,7 +121,7 @@ public class StartSellAction extends Action {
                     response.getOutputStream().print("sell-continue");
                 }
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

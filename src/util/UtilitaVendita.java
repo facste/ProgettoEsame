@@ -3,15 +3,10 @@ package util;
 import beans.ListaAcquisto;
 import beans.ProdottoAcquistato;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * Created by facst on 05/09/2017.
- */
 public class UtilitaVendita {
     private Connection connection;
     private ResultSet resultSet;
@@ -20,7 +15,7 @@ public class UtilitaVendita {
     public UtilitaVendita() {
         try {
 
-            connection= DbHelper.getConn();
+            connection = DbHelper.getConn();
         } catch (Exception e) {
             e.printStackTrace();
         }

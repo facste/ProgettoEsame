@@ -1,12 +1,8 @@
 package util;
 
-import javax.servlet.http.HttpSession;
 import java.sql.*;
-import java.util.ArrayList;
 
-/**
- * Created by facst on 30/05/2017.
- */
+
 public class UtilitaMessaggi {
     private Connection connection;
     private ResultSet resultSet;
@@ -32,9 +28,9 @@ public class UtilitaMessaggi {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 if (resultSet.getString("mittente").equals(utente))
-                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/invio.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
+                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/invio.png\"></td><td><img src=\"/images/cestino.png\" class=\"del\"></td></tr>");
                 else
-                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/ricevuto.jpg\"></td><td><img src=\"/images/cestino.jpg\" class=\"del\"></td></tr>");
+                    out = out.concat("<tr><td><p>" + resultSet.getString("mittente") + "</p></td><td><p>" + resultSet.getString("destinatario") + "</p></td><td><p>" + resultSet.getString("testo") + "</p></td><td><img src=\"/images/ricevuto.png\"></td><td><img src=\"/images/cestino.png\" class=\"del\"></td></tr>");
             }
 
         } catch (Exception e) {

@@ -12,8 +12,6 @@ import util.DbHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -26,12 +24,11 @@ public class EndSellAction extends Action {
         ArrayList<String> ricette = (ArrayList<String>) request.getSession().getAttribute("idricette");
         //lista codici ricette
         boolean fail = false;
-        Connection connection = null;
-        ResultSet resultSet = null;
+        Connection connection;
+        ResultSet resultSet;
         PreparedStatement statement = null;
         String query;
         int id;
-        int i = 0;
         try {
             connection= DbHelper.getConn();
             query = "INSERT INTO Acquisto ( data, idpersonale, cfpaziente) VALUES (?,?,?)";
@@ -69,14 +66,14 @@ public class EndSellAction extends Action {
                 }
 
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            fail = true;
         } catch (Exception e) {
             e.printStackTrace();
+            fail = true;
         } finally {
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

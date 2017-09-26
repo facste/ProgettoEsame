@@ -2,9 +2,6 @@ package beans;
 
 import java.io.Serializable;
 
-/**
- * Created by facst on 07/09/2017.
- */
 public class ProdottoAcquistato implements Serializable {
     private boolean ricetta;
     private int prodotto;

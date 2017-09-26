@@ -9,11 +9,7 @@ import util.DbHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
 
-/**
- * Created by facst on 26/05/2017.
- */
 public class LogoutAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

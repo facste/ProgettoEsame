@@ -3,9 +3,6 @@ package beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by facst on 07/09/2017.
- */
 public class ListaAcquisto extends ArrayList<ProdottoAcquistato> implements Serializable {
     public ListaAcquisto() {
     }

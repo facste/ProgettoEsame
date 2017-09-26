@@ -9,7 +9,7 @@
 <%@ include file="/stili/login/head.jsp" %>
 <h1>Qui potrai aggiungenere nuovi operatori pr la tua farmacia</h1> <br>
 <div align="center">
-    <form action="/creaop.do" method="post" id="creaop">
+    <form action="${pageContext.request.contextPath}/creaop.do" method="post" id="creaop">
         <p class="form">
             <label>Nome operatore</label> *<input type="text" class="txt" name="no" id="no"><br><br>
         </p>
@@ -23,7 +23,6 @@
             Dottore Farmacista <input type="radio" name="tipo" value="DF"/>
         </fieldset>
         <br><br>
-        </p>
         <p class="form">
             <label>Username</label> *<input type="text" class="txt" name="user" id="user"><br><br>
         </p>

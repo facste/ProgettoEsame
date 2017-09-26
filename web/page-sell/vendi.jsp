@@ -1,10 +1,4 @@
-<%@ page import="util.UtilitaVendita" %><%--
-  Created by IntelliJ IDEA.
-  User: facst
-  Date: 05/09/2017
-  Time: 10:26
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="util.UtilitaVendita" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../stili/login/head.jsp" %>
 
@@ -15,7 +9,8 @@
         <tr>
             <th>Codice Prodottto</th>
             <th>Nome prodotto</th>
-            <%if (!login.getTipo().equals("OB")) %><th>Ricetta</th>
+            <%if (!login.getTipo().equals("OB")) %>
+            <th>Ricetta</th>
             <th>Prezzo</th>
             <th>Quantità</th>
             <th></th>

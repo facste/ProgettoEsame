@@ -1,8 +1,5 @@
 package beans;
 
-/**
- * Created by facst on 08/06/2017.
- */
 public class LoginData implements java.io.Serializable {
     private String user;
     private boolean con;

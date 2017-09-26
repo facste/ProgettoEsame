@@ -1,16 +1,11 @@
 package util;
 
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
-/**
- * Created by facst on 09/08/2017.
- */
+
 public class UtilitàMagazzino {
 
     private Connection connection;

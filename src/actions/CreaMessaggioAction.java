@@ -12,15 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
-/**
- * Created by facst on 30/05/2017.
- */
+
 public class CreaMessaggioAction extends Action {
     //DA AGGIUNGERE TRA TF E I SUOI SOTTOPOSTI E TUTTI
     @Override
@@ -33,9 +29,9 @@ public class CreaMessaggioAction extends Action {
         String tipo = login.getTipo();
         UtilitaMessaggi utilitaMessaggi = new UtilitaMessaggi();
         boolean fail = false;
-        Connection connection = null;
+        Connection connection;
         PreparedStatement statement = null;
-        String query = "";
+        String query;
         try {
             connection = DbHelper.getConn();
             boolean giusto = (tipo.equals("REG")) ? (utilitaMessaggi.trovatipo(dest).equals("TF")) : utilitaMessaggi.controlla(mittente, dest);

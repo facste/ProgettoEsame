@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 
-/**
- * Created by facst on 30/05/2017.
- */
+
 public class CreaFarmaciaAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,7 +22,7 @@ public class CreaFarmaciaAction extends Action {
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         boolean fail = false;
-        Connection connection = null;
+        Connection connection;
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         String query = "SELECT * FROM Personale WHERE user= ? AND tipo='TF'";
@@ -73,8 +71,12 @@ public class CreaFarmaciaAction extends Action {
             request.setAttribute("errore", "Impossibile creare farmacia");
         } finally {
             try {
-                resultSet.close();
-                statement.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

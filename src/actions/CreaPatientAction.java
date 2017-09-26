@@ -1,6 +1,5 @@
 package actions;
 
-import beans.LoginData;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -21,7 +20,7 @@ public class CreaPatientAction extends Action {
         PreparedStatement statement = null;
         String query = "INSERT INTO Paziente VALUES (?,?)";
         try {
-            connection= DbHelper.getConn();
+            connection = DbHelper.getConn();
             statement = connection.prepareStatement(query);
             statement.setString(1, cf);
             statement.setString(2, np);
@@ -29,12 +28,13 @@ public class CreaPatientAction extends Action {
                 request.setAttribute("errore", "Impossibile creare paziente");
                 fail = true;
             }
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        }finally
-        {
+        } finally {
             try {
-                statement.close();
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

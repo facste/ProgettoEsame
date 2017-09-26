@@ -1,8 +1,5 @@
 package util;
 
-/**
- * Created by facst on 30/05/2017.
- */
 public class Messaggio {
     private String mittente, destinatario;
     private String testo;

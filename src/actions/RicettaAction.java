@@ -1,8 +1,6 @@
 package actions;
 
 import beans.ListaAcquisto;
-import beans.LoginData;
-import beans.ProdottoAcquistato;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -11,13 +9,10 @@ import util.DbHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by facst on 28/04/2017.
- */
+
 public class RicettaAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
@@ -28,13 +23,13 @@ public class RicettaAction extends Action {
             codRicette.add(request.getParameter("cr" + i));
         boolean diffpatient = false, insertpatient = false, fail = false;
         String cf = null;
-        Connection connection = null;
+        Connection connection;
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         String query;
         //Controllo che tutti gli id sia di unico paziente
         try {
-            connection= DbHelper.getConn();
+            connection = DbHelper.getConn();
             for (int i = 0; i < listaRicette.size(); i++) {
                 query = "SELECT cf FROM Ricetta WHERE ID=?";
                 statement = connection.prepareStatement(query);
@@ -42,9 +37,8 @@ public class RicettaAction extends Action {
                 resultSet = statement.executeQuery();
                 if (!resultSet.isBeforeFirst()) {
                     request.setAttribute("errore", "ricetta non esistente");
-                    fail=true;
-                }
-                else
+                    fail = true;
+                } else
                     while (resultSet.next()) {
                         if (cf == null)
                             cf = resultSet.getString(1);
@@ -54,7 +48,7 @@ public class RicettaAction extends Action {
             }
             if (diffpatient)
                 request.setAttribute("errore", "Puoi usare un solo paziente alla volta");
-            else if(!fail){
+            else if (!fail) {
                 query = "SELECT count(*) FROM Paziente WHERE CF=?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, cf);
@@ -63,19 +57,21 @@ public class RicettaAction extends Action {
                 if (resultSet.getInt(1) == 0)
                     insertpatient = true;
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                resultSet.close();
-                statement.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (diffpatient ||fail)
+        if (diffpatient || fail)
             return (mapping.findForward("error"));
         request.getSession().setAttribute("cf", cf);
         request.getSession().setAttribute("idricette", codRicette);

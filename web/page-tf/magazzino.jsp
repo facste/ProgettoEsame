@@ -1,10 +1,4 @@
-<%@ page import="util.UtilitàMagazzino" %><%--
-  Created by IntelliJ IDEA.
-  User: facst
-  Date: 09/08/2017
-  Time: 10:09
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="util.UtilitàMagazzino" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/stili/login/head.jsp" %>
 <% if (request.getParameter("prodotto") != null) {
